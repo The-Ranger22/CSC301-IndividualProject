@@ -1,0 +1,188 @@
+/*
+scs - site color scheme
+*/
+
+h2{
+
+}
+h2:after{
+    background: none;
+    content: attr(data-text);
+    left: 0;
+    top: 0;
+    z-index: -1;
+    position: absolute;
+    text-shadow: 1px 1px 2px #000;
+}
+p{
+    font-family: "Source Code Pro", sans-serif;
+}
+.spacer{
+    display: block;
+    min-height: 10vh;
+}
+.spacer2{
+    display: block;
+    min-height: 1rem;
+}
+.s-5{
+    display: block;
+    min-height: 5px;
+}
+.scs-bg-hdr{
+    font-family: 'Press Start 2P', sans-serif;
+    background: -webkit-linear-gradient(orangered, gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border-radius: 30px;
+    filter: drop-shadow(2px 2px black);
+    font-size: 3vw;
+
+
+}
+@media only screen and (max-width: 600px) {
+   .scs-bg-hdr{
+       text-align: center;
+       font-size: 16px;
+   }
+}
+.nav-container{
+    background: -webkit-linear-gradient(#000035,#0079d7, #000035);
+    color: yellow;
+}
+.nav-item-style{
+    list-style-type: none; !important;
+    background: -webkit-linear-gradient(orangered, gold); !important;
+    -webkit-background-clip: text; !important;
+    -webkit-text-fill-color: transparent; !important;
+    font-family: 'Press Start 2P', sans-serif; !important;
+    color: yellow; !important;
+    font-size: 3vh; !important;
+    min-font-size: 24px;
+    filter: drop-shadow(2px 2px black); !important;
+    display: block;
+    min-width: 100px;
+    /*text-shadow: 2px 2px black;*/
+}
+.nav-item-style:hover{
+    cursor: pointer;
+}
+
+.nav-link.hover{
+    border: 8px solid transparent;
+    border-radius: 5px;
+    border-image-source: url('https://i.ibb.co/M6Dyff9/customborder.png');
+    border-image-repeat: repeat;
+    border-image-slice: 30%;
+}
+.nav-link.active{
+    border: 8px solid transparent;
+    border-radius: 5px;
+    border-image-source: url('https://i.ibb.co/M6Dyff9/customborder.png');
+    border-image-repeat: repeat;
+    border-image-slice: 30%;
+}
+.cstm-border{
+    border: 8px solid transparent;
+    border-radius: 5px;
+    border-image-source: url('https://i.ibb.co/M6Dyff9/customborder.png');
+    border-image-repeat: repeat;
+    border-image-slice: 30%;
+
+    /*border-top-right-radius: 10px;
+    border-top-left-radius: 10px;*/
+}
+.border-cap-left{
+    border-left: 1px solid gray; !important;
+}
+.border-cap-right{
+    border-right: 1px solid gray; !important;
+}
+.border-cap-lr{
+    border-left: 1px solid gray; !important;
+    border-right: 1px solid gray; !important;
+}
+.standard-container{
+    font-family: 'Source Code Pro', sans-serif;
+    background-color: #000035;
+    color: white;
+}
+.footer-container{
+    font-family: 'Source Code Pro', sans-serif;
+    background: -webkit-linear-gradient(#000035,#0079d7, #000035);
+    color: yellow;
+}
+.header-text{
+    font-family: 'Press Start 2P', sans-serif;!important;
+    background: -webkit-linear-gradient(orangered, gold);!important;
+    -webkit-background-clip: text;!important;
+    -webkit-text-fill-color: transparent;!important;
+    filter: drop-shadow(2px 2px black);!important;
+}
+.p-top-10{
+    padding-top: 10px;
+}
+.p-bot-10{
+    padding-bottom: 10px;
+}
+.p-lft-10{
+    padding-left: 10px;
+}
+.p-rgt-10{
+    padding-right: 10px;
+}
+.p-null{
+    padding: 0;
+}
+.m-rgt-5{
+    margin-right: 5px;
+}
+.m-top-10{
+    margin-top: 10px;
+}
+.m-bot-10{
+    margin-bottom: 10px;
+}
+.m-lft-10{
+    margin-left: 10px;
+}
+.m-rgt-10{
+    margin-right: 10px;
+}
+.m-null{
+    margin: 0;
+}
+.unli{
+    text-decoration: underline;
+}
+.ico-style{
+    font-family: 'Press Start 2P', sans-serif; !important;
+    background: -webkit-linear-gradient(orangered, gold); !important;
+    -webkit-background-clip: text; !important;
+    -webkit-text-fill-color: transparent; !important;
+    filter: drop-shadow(2px 2px black); !important;
+    font-size: 32px; !important;
+}
+
+
+@keyframes animatedBackground {
+    from { background-position: 0 0; }
+    to { background-position: -192px 192px; }
+}
+
+#animate-area{
+    background-image: url('https://i.ibb.co/YLMfCFw/pixil-frame-0-2.png');
+    background-color: #0f0135;
+    background-position: 0px 0px;
+    background-repeat: repeat;
+    min-height: 100vh;
+    animation: animatedBackground 4s linear infinite;
+}
+#animate-area2{
+    background-image: url('https://i.ibb.co/xqjWTy5/image.png');
+    background-color: #0f0135;
+    background-position: 0px 0px;
+    background-repeat: repeat;
+    min-height: 100vh;
+    animation: animatedBackground 4s linear infinite;
+}
