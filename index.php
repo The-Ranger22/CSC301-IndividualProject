@@ -20,7 +20,7 @@ function populateArray()
         echo '<br>';
     }
 
-    die(); exit();
+
 
     print_r($arr);
     echo '<br>';
@@ -66,6 +66,6 @@ function populateArray()
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
 <script src="js/bootstrap.js"></script>
-<script src="js/custom.js"></script>
+<script src="js/zg-login.js"></script>
 </body>
 </html>

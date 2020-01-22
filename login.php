@@ -3,10 +3,10 @@ $uName = '';
 $uPassword = '';
 
 
+
+
 function writeLogin(){
-    echo "
-    <>
-    ";
+    echo "<button class='btn btn-primary' id='login' >Login</button>";
 }
 
 ?>
@@ -18,12 +18,20 @@ function writeLogin(){
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="css/zeitgeist-main.css">
+    <style>
+
+        #login{
+            border-radius: 100%;
+            padding: 25px;
+        }
+    </style>
     <title>Login - Zeitgeist</title>
 </head>
-<body>
-
+<body class="light-mode">
 <div class="container-fluid">
+    <button onclick="viewMode()" id="modeSwitch">test</button>
+    Zeitgeist_
     <?php writeLogin(); ?>
 </div>
 
@@ -32,6 +40,7 @@ function writeLogin(){
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
 <script src="js/bootstrap.js"></script>
-<script src="js/login.js"></script>
+<script src="js/zg-login.js"></script>
+<script src="js/zg-skeleton.js"></script>
 </body>
 </html>
