@@ -2,11 +2,21 @@
 $uName = '';
 $uPassword = '';
 
+$title = 'Zeitgeist_';
 
 
 
-function writeLogin(){
-    echo "<button class='btn btn-primary' id='login' >Login</button>";
+
+function writeTitle($t){
+    echo "<h1 class='f-cm' id='title_text'>".$t."</h1>";
+    echo "<form>";
+    echo '
+    <form>
+        <input type="text" name="username" placeholder="username"><br>
+        <input type="password" name="password" placeholder="password"><br>
+        <input type="submit" value="submit"><br>
+    </form>
+    ';
 }
 
 ?>
@@ -15,25 +25,20 @@ function writeLogin(){
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/zeitgeist-main.css">
-    <style>
-
-        #login{
-            border-radius: 100%;
-            padding: 25px;
-        }
-    </style>
-    <title>Login - Zeitgeist</title>
+    <link href="https://fonts.googleapis.com/css?family=Cutive+Mono|Major+Mono+Display|VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <title>Login - zeitgeist</title>
 </head>
-<body class="light-mode">
-<div class="container-fluid">
-    <button onclick="viewMode()" id="modeSwitch">test</button>
-    Zeitgeist_
-    <?php writeLogin(); ?>
-</div>
+<body class="light-mode" onresize="setTitlePos(getPosX(), getPosY())">
+<!--dark mode button-->
+<label onclick="viewMode()" id="dark_mode">Light</label>
+
+
+<div class="" id="title_splash"><?php writeTitle($title); ?></div>
+
+
 
 <script src="js/jQuery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"

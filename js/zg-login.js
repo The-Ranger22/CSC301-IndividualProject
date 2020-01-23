@@ -1,11 +1,17 @@
+setTitlePos(getPosX(),getPosY());
 
-let PosX = getPosX();
-let PosY = getPosY();
-document.getElementById('login').setAttribute('style', 'position: absolute ;top:'+PosY+'px; right:'+(PosX - 25)+'px;')
 function getPosX(){
-    return screen.width/2;
+    return window.innerWidth/2;
 }
 function getPosY(){
-    return screen.height/2;
+    return window.innerHeight/2;
 }
+function setTitlePos(x, y){
+    document.getElementById('title_splash').setAttribute(
+        'style', 'position: absolute ;' + 'top:'+(y - 200)+'px; right:'+(x - 245)+'px;'
+    );
+    console.log("PosX: " + x);
+    console.log("PosY: " + y);
+}
+
 

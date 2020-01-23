@@ -1,0 +1,14 @@
+Parameters: -> protocol://domainname.tld/pathToFile?field=item
+                                                   ^-Parameter-^
+    -Accessible as Key/Value pairs
+    -End part -> Query String
+
+Associative Array(?)
+
+Reading info from a file/DB
+    -txt
+    -JSON
+    -MySQL
+
+Verifying if a variable exists -> isset() <- neato torpedo
+    -returns a boolean value
