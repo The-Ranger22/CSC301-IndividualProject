@@ -12,8 +12,6 @@ if(document.cookie === "dark_mode=true"){
 }else{
     console.log("GCI: Failure");
 }
-
-console.log("Beep-1");
 //Switches between a light mode and dark mode specified in zeitgeist-main.css
 function viewMode(){
     let dm = document.getElementById('dark_mode');

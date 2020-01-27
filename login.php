@@ -1,23 +1,10 @@
 <?php
+//TODO: Add sign up button
 $uName = '';
 $uPassword = '';
 
 $title = 'Zeitgeist_';
 
-
-
-
-function writeTitle($t){
-    echo "<h1 class='f-cm' id='title_text'>".$t."</h1>";
-    echo "<form>";
-    echo '
-    <form>
-        <input type="text" name="username" placeholder="username"><br>
-        <input type="password" name="password" placeholder="password"><br>
-        <input type="submit" value="submit"><br>
-    </form>
-    ';
-}
 
 ?>
 <!DOCTYPE html>
@@ -27,7 +14,10 @@ function writeTitle($t){
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/zeitgeist-main.css">
-    <link href="https://fonts.googleapis.com/css?family=Cutive+Mono|Major+Mono+Display|VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cutive+Mono|Major+Mono+Display|VT323&display=swap"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <title>Login - zeitgeist</title>
 </head>
@@ -35,9 +25,33 @@ function writeTitle($t){
 <!--dark mode button-->
 <label onclick="viewMode()" id="dark_mode">Light</label>
 
+<div class="container">
+    <div class="" id="title_splash">
+        <h1 class='f-ps2p' id='title_text'>
+            <span class="c-red">Z</span>
+            <span class="c-purple">e</span>
+            <span class="c-blue">i</span>
+            <span class="c-green">t</span>
+            <span class="c-yellow">g</span>
+            <span class="c-orange">e</span>
+            <span class="c-pink">i</span>
+            <span class="c-white">s</span>
+            <span class="c-black">t</span>
 
-<div class="" id="title_splash"><?php writeTitle($title); ?></div>
-
+        </h1>
+        <div class="row">
+            <div class="col"></div>
+        <form class="col-10 cstm-border nav-container align-items-center" id="login_form" action="login.php">
+            <input class="col login_field cstm-border" type="text" name="username"  placeholder="username">
+            <br class="">
+            <input class="col login_field cstm-border" type="password" name="password" placeholder="password">
+            <br class="">
+            <input type="submit" value="LOGIN"><br>
+        </form>
+            <div class="col"></div>
+        </div>
+    </div>
+</div>
 
 
 <script src="js/jQuery.js"></script>

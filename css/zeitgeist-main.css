@@ -1,3 +1,25 @@
+#login_form{
+    max-width: 350px
+}
+.login_field{
+    background-color: #494c56;
+    border: none;
+    margin-bottom: 6px;
+}
+.dark-mode .login_field{
+    color: white;
+}
+.light-mode .login_field{
+    color: white;
+}
+
+
+
+
+
+
+
+
 #title_splash{
     /*font-size: 24px;
     margin-left: -10rem;
@@ -6,26 +28,95 @@
     text-align: center;*/
 }
 #title_text{
-    font-size: 5em;
+    font-size: 5vw;
+    font-min-size: 150px;
+    filter: drop-shadow(2px 2px black);
+}
+#title_text .span{
+    margin: 0;
+    padding: 0;
+}
+.c-red{
+    color: red;
+}
+.c-blue{
+    color: blue;
+}
+.c-green{
+    color: green;
+}
+.c-purple{
+    color:purple;
+}
+.c-yellow{
+    color: yellow;
+}
+.c-orange{
+    color:orange;
+}
+.c-pink{
+    color: pink;
+}
+.c-white{
+    color: white;
+}
+.c-black{
+    color: black;
 }
 #dark_mode{
-    position: absolute;
+    position: fixed;
     bottom: 1rem;
     right: 1rem;
     background-color: rgba(0, 0, 0, 0);
+    z-index: 0;
 }
 #dark_mode:hover{
     cursor: pointer;
 }
 .light-mode{
+
     transition: background-color 0.5s ease;
-    background-color: white;
-    color: #202024;
+    background-color: #e3e3e3;
+    color: #18181c;
+    /*
+    background-image: url('https://i.ibb.co/YLMfCFw/pixil-frame-0-2.png');
+    background-color: #0f0135;
+    background-position: 0px 0px;
+    background-repeat: repeat;
+    min-height: 100vh;
+
+    animation: animatedBackground 4s linear infinite;
+    z-index: -1;
+
+     */
 }
-.dark-mode{
+.light-mode #title_text{
+    /*text-shadow: 3px 3px 1px #3e94b1, 6px 6px 2px #356f80, 9px 9px 2px #194044, 12px 12px 2px #142c2e;*/
+}
+.dark-mode {
     transition: background-color 0.5s ease;
-    background-color: #202024;
+    background-color: #2f2f34;
     color: white;
+    z-index: -1;
+}
+.dark-mode #title_text{
+    /*text-shadow: 3px 3px 1px #b11a43, 6px 6px 2px #801739, 9px 9px 2px #440b1c, 12px 12px 2px #2e0b17*/;
+}
+.cstm-border{
+    border: 8px solid transparent;
+    border-radius: 5px;
+    border-image-source: url('https://i.ibb.co/M6Dyff9/customborder.png');
+    border-image-repeat: repeat;
+    border-image-slice: 30%;
+
+    /*border-top-right-radius: 10px;
+    border-top-left-radius: 10px;*/
+}
+.cstm-border-2{
+    border: 3px solid transparent;
+    border-image-source: url('/img/cstm-border-2.png');
+    border-image-repeat: repeat;
+    border-image-slice: 30%;
 }
 .f-cm{
     font-family: 'Cutive Mono', monospace;
@@ -38,4 +129,68 @@
 }
 .f-stm{
     font-family: 'Share Tech Mono', monospace;
+}
+.f-scp{
+    font-family: "Source Code Pro", sans-serif;
+}
+.f-ps2p{
+    font-family: 'Press Start 2P', sans-serif;
+}
+
+.standard-container{
+    background-color: #000035;
+    color: white;
+}
+.header-text{
+     font-family: 'Press Start 2P', sans-serif;!important;
+     background: -webkit-linear-gradient(orangered, gold);!important;
+     -webkit-background-clip: text;!important;
+     -webkit-text-fill-color: transparent;!important;
+     filter: drop-shadow(2px 2px black);!important;
+}
+.nav-container{
+    background: -webkit-linear-gradient(#000035,#0079d7, #000035);
+    color: yellow;
+    text-align: center;
+    padding-top: 1rem;
+}
+.nav-item-style{
+    list-style-type: none; !important;
+    background: -webkit-linear-gradient(orangered, gold); !important;
+    -webkit-background-clip: text; !important;
+    -webkit-text-fill-color: transparent; !important;
+    font-family: 'Press Start 2P', sans-serif; !important;
+    color: yellow; !important;
+    font-size: 3vh; !important;
+    min-font-size: 24px;
+    filter: drop-shadow(2px 2px black); !important;
+    display: inline-block;
+    min-width: 100px;
+    /*text-shadow: 2px 2px black;*/
+}
+.nav-item-style:hover{
+    cursor: pointer;
+}
+.spacer{
+    display: block;
+    min-height: 10vh;
+}
+.spacer2{
+    display: block;
+    min-height: 1rem;
+}
+
+@keyframes animatedBackground {
+    from { background-position: 0 0; }
+    to { background-position: -192px 192px; }
+}
+
+#animate-area	{
+    background-image: url('https://i.ibb.co/YLMfCFw/pixil-frame-0-2.png');
+    background-color: #0f0135;
+    background-position: 0px 0px;
+    background-repeat: repeat;
+    min-height: 100vh;
+
+    animation: animatedBackground 4s linear infinite;
 }
