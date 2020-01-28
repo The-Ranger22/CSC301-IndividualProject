@@ -93,9 +93,10 @@
 .light-mode #title_text{
     /*text-shadow: 3px 3px 1px #3e94b1, 6px 6px 2px #356f80, 9px 9px 2px #194044, 12px 12px 2px #142c2e;*/
 }
+
 .dark-mode {
     transition: background-color 0.5s ease;
-    background-color: #2f2f34;
+    background-color: #18181c;
     color: white;
     z-index: -1;
 }

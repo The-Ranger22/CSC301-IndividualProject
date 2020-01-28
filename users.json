@@ -1,6 +1,7 @@
 [
   {
     "username": "V_",
+    "bio": "The first",
     "title": "100% Programmer!",
     "quote": "I exist!",
     "img": "https:\/\/wikimon.net\/images\/b\/b3\/Ulforcevdramon_vpet_penp.gif",
@@ -13,6 +14,7 @@
   },
   {
     "username": "Duk3",
+    "bio": "The third",
     "title": "Holy Corrupted Data",
     "quote": "Not my fault!",
     "img": "https:\/\/wikimon.net\/images\/b\/bf\/Dukemon_vpet_darc.gif",
@@ -25,6 +27,7 @@
   },
   {
     "username": "0m3g@",
+    "bio": "The second",
     "title": "Mother of all Vaccines",
     "quote": "Debug or cry trying",
     "img": "https:\/\/wikimon.net\/images\/6\/65\/Omegamon_vpet_dt.gif",

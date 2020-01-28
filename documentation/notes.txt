@@ -12,3 +12,13 @@ Reading info from a file/DB
 
 Verifying if a variable exists -> isset() <- neato torpedo
     -returns a boolean value
+
+
+include()
+include_once()
+require()
+require_once() <-- Use
+
+JSON
+    {} - Defines an object
+    [] - defines an array

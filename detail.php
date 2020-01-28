@@ -1,7 +1,5 @@
 <?php
-include 'zg_function.php';
-$users = json_decode(file_get_contents('users.json'), true);
-
+require_once 'zg_function.php';
 if(!isset($_GET['id'])){
     echo 'Please enter the id of a member or visit the <a href="index.php">index page</a>.';
     die();
@@ -48,12 +46,13 @@ if($_GET['id']<0 || $_GET['id']>count($users)-1){
             <div class="row standard-container cstm-border f-scp">
                 <div class="col">
                     <h2 class="header-text">Bio</h2><br>
-                    <p>TODO: Add PHP call to users.json</p>
+                    <p><?= $users[$_GET['id']]['bio']?></p>
                 </div>
                 <div class="col text-center">
                     <img src="<?= $users[$_GET['id']]['img']?>"><br>
                     <h3><?= $users[$_GET['id']]['username']?></h3>
                     <h4><?= $users[$_GET['id']]['title']?></h4>
+                    <h5><?= $users[$_GET['id']]['date_joined']['month']?>/<?= $users[$_GET['id']]['date_joined']['day']?>/<?= $users[$_GET['id']]['date_joined']['year']?></h5>
                 </div>
             </div>
         </div>
