@@ -1,7 +1,7 @@
 <?php
 include 'zg_function.php';
 $users = json_decode(file_get_contents('users.json'), true);
-$posts = json_decode(file_get_contents('post.json'), true);
+
 
 ?>
 
@@ -38,21 +38,22 @@ $posts = json_decode(file_get_contents('post.json'), true);
             </div>
             <div class="row spacer2"></div>
             <div class="row cstm-border standard-container" id="main_content">
-
-                <div class="col">
-                    <div class="row">
-                        <div class="col-1">
-                            <img src="<?php echo $users[] ?>" alt="user profile pic">
-                        </div>
-                        <div class="col-9">
-                            Dummy Text
-                        </div>
-                        <div class="col-2"></div>
-                    </div>
+                <?php
+                for($i = 0; $i < count($users); $i++){
+                echo '
+        <span>
+            <div class="card_container" style="width: 10rem">
+                <img class="card_img" src="'. $users[$i]['img']. '" alt="Profile pic of '.$users[$i]['username'].'">
+                <div class="card_body">
+                    <h5 class="card_title">'.$users[$i]['username'].'</h5>
+                    <p class="card_text">'.$users[$i]['title'].'</p>
+                    <a href="detail.php?id='.$i.'">Visit profile</a>
                 </div>
-
-                <?php for($i = 0; $i < count($users); $i++){echo '';}?></div>
-        </div>
+            </div>
+        </span>
+        '; }
+                ?>
+            </div>
         <div class="col"></div>
     </div>
 
