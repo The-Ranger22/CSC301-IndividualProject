@@ -1,23 +1,5 @@
 <?php
 
-/*
-$beatles=readJSON('beatles.json');
-$beatles[0]['last_name']='Lennon';
-echo '<pre>';
-print_r($beatles);
-writeJSON('beatles.json',$beatles);
-*/
-
-$index=$_GET['index'];
-//unset($_GET['index']);
-echo '<pre>';
-$allowed_fields=['name','last_name','age','dob','picture','address'];
-print_r(filterInput($_GET,$allowed_fields));
-echo '<hr>';
-print_r($_GET);
-
-//modifyJSON('beatles.json',$_GET,$index);
-
 function filterInput($data,$allowed_fields){
 	for($i=0;$i<count(array_keys($data));$i++)
 		if(!in_array(array_keys($data)[$i],$allowed_fields)) unset($data[array_keys($data)[$i]]);

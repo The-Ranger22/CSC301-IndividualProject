@@ -1,17 +1,4 @@
 <?php
-//Student: Levi Schanding
-/*
-$csv='John;Lennon';
-writeCSV('beatles.csv',$csv);
-$csv='Paul;McCartney';
-writeCSV('beatles.csv',$csv);
-*/
-echo '<pre>';
-//deleteCSVEntry('beatles.csv', 1);
-//modifyCSVEntry('beatles.csv', [0 => "Baker", 1 => "Church" ], 0);
-print_r(readAtCSV('beatles.csv', 1));
-print_r(readCSV('beatles.csv'));
-
 function writeCSV($file,$data){
     $h=fopen($file,file_exists($file) ? 'a' : 'w+');
     fwrite($h,$data. "\n" /* PHP_EOL */);
@@ -63,5 +50,8 @@ function modifyCSVEntry($file, $data, $index){
     fwrite($handler, $currentData);
     fclose($handler);
 } //Works
-
+function lengthOfCSV($file){
+    $arr = readCSV($file);
+    return count($arr);
+}
 

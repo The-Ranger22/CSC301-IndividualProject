@@ -183,11 +183,11 @@
 
 @keyframes animatedBackground {
     from { background-position: 0 0; }
-    to { background-position: -240px 240px; }
+    to { background-position: -192px 192px; }
 }
 
 #animate-area	{
-    background-image: url('/img/motherboard.png');
+    background-image: url('https://i.ibb.co/YLMfCFw/pixil-frame-0-2.png');
     background-color: #0f0135;
     background-position: 0px 0px;
     background-repeat: repeat;
