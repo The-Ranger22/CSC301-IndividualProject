@@ -1,2 +1,2 @@
 <?php
-require_once('zg_function.php');
+require_once('../_libs/json.php');
