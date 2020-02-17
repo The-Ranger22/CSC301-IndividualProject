@@ -2,7 +2,6 @@
 require_once 'zg_function.php';
 
 
-
 ?>
 
 <!DOCTYPE html>
@@ -25,6 +24,7 @@ require_once 'zg_function.php';
     <div class="row">
         <div class="col"></div>
         <div class="col-11">
+
             <div class="row spacer2"></div>
             <div class="row cstm-border nav-container" id="nav_bar">
                 <nav class="">
@@ -39,14 +39,15 @@ require_once 'zg_function.php';
             <div class="row spacer2"></div>
             <div class="row cstm-border standard-container" id="main_content">
                 <?php
-                for($i = 0; $i < count($users); $i++){
-                    show_profile($users[$i]['username'], $users[$i]['img'],$users[$i]['title'],$i);
+                for ($i = 0; $i < count($users); $i++) {
+                    show_profile($users[$i]['username'], $users[$i]['img'], $users[$i]['title'], $i);
                 }
                 ?>
             </div>
+        </div>
         <div class="col"></div>
-    </div>
 
+    </div>
 </div>
 
 <script src="js/jQuery.js"></script>

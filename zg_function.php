@@ -1,4 +1,8 @@
 <?php
+
+$filter = ['username', 'title', 'quote', 'img'];
+
+
 $users = json_to_arr('users.json');
 function add_user($u_name, $u_title, $u_quote, $img, $json){//TODO: Update to store items in DB
     $users = json_decode(file_get_contents($json));
@@ -55,3 +59,15 @@ function show_profile($username, $picture, $body=null, $id){
 function json_to_arr($file){
     return json_decode(file_get_contents($file), true);
 }
+function readJSON($file, $index = null){
+    $h = fopen($file, 'r');
+    $output = '';
+    while(!feof($h)) $output .= fgets($h);
+    fclose($h);
+    $output = json_decode($output, true);
+    return !isset($index) ? $output : (isset($output[$index]) ? $output[$index] : null);
+}
+function writeJSON($file, $data){}
+function modifyJSON($file, $data, $index){}
+function deleteJSON($file, $index){}
+function filterInput($data, $filter){}
