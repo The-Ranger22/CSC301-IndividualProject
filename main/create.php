@@ -2,16 +2,15 @@
 require_once('../_libs/json.php');
 require_once('../_libs/csv.php');
 
-//TODO: KEEP CODE FROM EXECUTING UPON REFRESH
-
+//TODO: KEEP CODE FROM EXECUTING UPON REFRESH -- REQUIRE A TOKEN OF SOME KIND THAT EXPIRES UPON REFRESH
 
 if(!passwordMatches($_POST['password'], $_POST['confirm_password']) || usernameExists($_POST['username'])){
-    if(!passwordMatches($_POST['password'], $_POST['confirm_password'])) echo "Password does not match";
-    if(usernameExists($_POST['username'])) echo "Username is taken";
-    die();
+    if(!passwordMatches($_POST['password'], $_POST['confirm_password'])) echo "Password does not match!";
+    if(usernameExists($_POST['username'])) echo "Username is taken!";
+    die(); //TODO: Redirect user back to sign up
 }
 else{
-    addUser($_POST['username'], $_POST['password'], 'april', $_POST['fname'], $_POST['lname']);
+    addUser($_POST['username'], $_POST['password'], $_POST['DOB_Month'].'/'.$_POST['DOB_Day'].'/'.$_POST['DOB_Year'], $_POST['fname'], $_POST['lname']);
 }
 
 
@@ -32,24 +31,28 @@ function passwordMatches($password, $password2){
 
 function addUser($username, $password, $DoB, $fname, $lname){
     $file = '../_assets/data/users/user_directory.csv';
-    writeCSV($file, $username);
-    $userID = "u#" . dechex(lengthOfCSV($file));
+    $userID = "user" . lengthOfCSV($file);
+    writeCSV($file, $username .';'. $userID);
+
 
     $userData = [
         'username' => $username,
         'password' => $password, //TODO: Encrypt password
+        'id' => $userID,
         'DoB' => $DoB,
         'first_name' => $fname,
         'last_name' => $lname,
         'preferences' =>[
             'title' => null,
-            'quote' => null
+            'quote' => null,
+            'bio' => null,
+            'img' => '../_assets/img/profile-placeholder.png'
         ],
         'date_joined' =>[
             'day'=>date('d'),
             'month'=>date('m'),
             'year'=>date('Y'),
-            'time'=>date('e h:i:s A')
+            'time'=>date('e h:i:s A') //TODO: FIX THE BLOODY TIMEZONE
         ]
     ];
 
@@ -58,6 +61,7 @@ function addUser($username, $password, $DoB, $fname, $lname){
     }
     writeJSON('../_assets/data/users/'.$userID.'/'.$userID.'.json', $userData);
 
-
+    header('Location: detail.php?id='.$userID);
+    die();
 
 }

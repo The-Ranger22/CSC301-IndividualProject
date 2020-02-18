@@ -13,7 +13,12 @@ function writeJSON($file,$data){
 }
 
 function readJSON($file,$index=null){
+
 	$h=fopen($file,'r');
+    if(!file_exists($file)){
+        echo 'file not found';
+        die();
+    }
 	$output='';
 	while(!feof($h)) $output.=fgets($h);
 	fclose($h);

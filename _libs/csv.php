@@ -54,4 +54,12 @@ function lengthOfCSV($file){
     $arr = readCSV($file);
     return count($arr);
 }
+function indexOfCSV($file, $entry){
+    $h = readCSV($file);
+    for($i = 0; $i < lengthOfCSV($file); $i++){
+        if($entry == $h[$i][0] || $entry == $h[$i][1]) return $i;
+    }
+    echo 'index of entry not found';
+    die();
+}
 

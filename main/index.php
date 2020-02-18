@@ -1,11 +1,31 @@
 <?php
-require_once 'zg_function.php';
+require_once '../_libs/csv.php';
+require_once '../_libs/json.php';
 
+
+
+function display_user(){
+    $user_directory = readCSV('../_assets/data/users/user_directory.csv');
+    //TODO: Add user
+
+    for($i = 0; $i < count($user_directory); $i++){
+        $key = $user_directory[$i][1];
+
+        $user_data = readJSON('../_assets/data/users/'.$key.'/'.$key.'.json');
+
+        echo '<span><div class="col-2">';
+        echo '<div class="row"><img class="user-img" src="'.$user_data['preferences']['img'].'" alt="'.$user_data['username'].'"></div><br>';
+        echo '<div class="row"><h4>'.$user_data['username'].'</h4></div>';
+        echo '<div class="row"><h6>'.$user_data['preferences']['title'].'</h6></div>';
+        echo '<div class="row"><a href="detail.php?id='.$key.'">Visit Profile</a></div>';
+        echo '</div></span>';
+    }
+}
 
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -18,8 +38,8 @@ require_once 'zg_function.php';
     <link rel="stylesheet" href="../_assets/css/zeitgeist-main.css">
     <title>Index</title>
 </head>
-<body>
-<label onclick="viewMode()" id="dark_mode"></label>
+<body id="animate-area">
+
 <div class="container">
     <div class="row">
         <div class="col"></div>
@@ -32,16 +52,15 @@ require_once 'zg_function.php';
                         <li class="nav-item-style"><a href="index.php">Home<a/></li>
                         <li class="nav-item-style">Feed</li>
                         <li class="nav-item-style">Rooms</li>
-                        <li class="nav-item-style">Placeholder</li>
+                        <li class="nav-item-style">My Account</li>
+                        <li class="nav-item-style"><a href="signup.html">Sign Up</a></li>
                     </ul>
                 </nav>
             </div>
             <div class="row spacer2"></div>
             <div class="row cstm-border standard-container" id="main_content">
                 <?php
-                for ($i = 0; $i < count($users); $i++) {
-                    show_profile($users[$i]['username'], $users[$i]['img'], $users[$i]['title'], $i);
-                }
+                display_user();
                 ?>
             </div>
         </div>

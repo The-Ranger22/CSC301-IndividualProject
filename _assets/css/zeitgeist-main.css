@@ -73,6 +73,15 @@
 #dark_mode:hover{
     cursor: pointer;
 }
+.user-img{
+    max-width: 80px;
+    min-width: 80px;
+    border-radius: 30px;
+}
+.user-img-large{
+    max-width: 180px;
+    min-width: 180px;
+}
 .light-mode{
 
     transition: background-color 0.5s ease;
@@ -167,6 +176,10 @@
     filter: drop-shadow(2px 2px black); !important;
     display: inline-block;
     min-width: 100px;
+    border-left: solid gray 2px;
+    border-right: solid gray 2px;
+    padding-left: 3px;
+    padding-right: 3px;
     /*text-shadow: 2px 2px black;*/
 }
 .nav-item-style:hover{

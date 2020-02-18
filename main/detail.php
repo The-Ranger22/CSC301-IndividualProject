@@ -1,13 +1,7 @@
 <?php
-require_once 'zg_function.php';
-if(!isset($_GET['id'])){
-    echo 'Please enter the id of a member or visit the <a href="index.php">index page</a>.';
-    die();
-}
-if($_GET['id']<0 || $_GET['id']>count($users)-1){
-    echo 'Please enter the id of a member or visit the <a href="index.php">index page</a>.';
-    die();
-}
+require_once '../_libs/json.php';
+$user_data = readJSON('../_assets/data/users/'.$_GET['id'].'/'.$_GET['id'].'.json');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,11 +15,10 @@ if($_GET['id']<0 || $_GET['id']>count($users)-1){
     <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../_assets/css/bootstrap.css">
     <link rel="stylesheet" href="../_assets/css/zeitgeist-main.css">
-    <title><?= $users[$_GET['id']]['username'].'_Zeitgeist' ?></title>
+    <title><?= $user_data['username'].'_Zeitgeist' ?></title>
 </head>
-<body>
+<body id="animate-area">
 
-<label onclick="viewMode()" id="dark_mode">Light</label>
 <div class="container">
     <div class="row">
         <div class="col"></div>
@@ -45,14 +38,17 @@ if($_GET['id']<0 || $_GET['id']>count($users)-1){
             <div class="row spacer2"></div>
             <div class="row standard-container cstm-border f-scp">
                 <div class="col">
+
                     <h2 class="header-text">Bio</h2><br>
-                    <p><?= $users[$_GET['id']]['bio']?></p>
+                    <p><?= $user_data['preferences']['bio']?></p>
                 </div>
                 <div class="col text-center">
-                    <img src="<?= $users[$_GET['id']]['img']?>"><br>
-                    <h3><?= $users[$_GET['id']]['username']?></h3>
-                    <h4><?= $users[$_GET['id']]['title']?></h4>
-                    <h5><?= $users[$_GET['id']]['date_joined']['month']?>/<?= $users[$_GET['id']]['date_joined']['day']?>/<?= $users[$_GET['id']]['date_joined']['year']?></h5>
+                    <img class="user-img-large" src="<?= $user_data['preferences']['img']?>" alt="<?= $user_data['username'] ?>"><br>
+                    <h3><?= $user_data['username']?></h3>
+                    <h4><?= $user_data['preferences']['title']?></h4>
+                    <h5>Member since: <?= $user_data['date_joined']['month']?>/<?= $user_data['date_joined']['day']?>/<?= $user_data['date_joined']['year']?></h5>
+                    <span><a class="btn btn-primary" href="edit.php?id=<?= $_GET['id'] ?>">Edit</a></span>
+                    <span><a class="btn btn-danger" href="delete.php?id=<?= $_GET['id'] ?>">Delete</a></span>
                 </div>
             </div>
         </div>
