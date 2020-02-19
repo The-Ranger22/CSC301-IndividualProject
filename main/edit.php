@@ -5,16 +5,13 @@ require_once('../_libs/csv.php');
 $user_file = '../_assets/data/users/'.$_GET['id'].'/'.$_GET['id'].'.json';
 $user_data = readJSON($user_file);
 
-
+//TODO: Add additional CSV file to keep track of total number of users/Alt: Make the first entry in user_directory store the integer value of member count
 //echo '<pre>';
 //echo $user_file;
 //print_r($user_data);
 
 if(isset($_POST['save'])) {
     commitChanges($_POST['title'], $_POST['quote'], $_POST['bio'], $user_data, $user_file);
-}
-if(isset($_POST['cancel'])){
-    cancelChanges();
 }
 
 function commitChanges($newTitle, $newQuote, $newBio, $user_data, $file)
@@ -28,9 +25,6 @@ function commitChanges($newTitle, $newQuote, $newBio, $user_data, $file)
 
     header("Location: detail.php?id=".$_GET['id']);
 
-}
-function cancelChanges(){
-    header("Location: detail.php?id=".$_GET['id']);
 }
 
 ?>
@@ -56,14 +50,17 @@ function cancelChanges(){
             <div class="row spacer2"></div>
             <div class="row">
                 <div class="col standard-container cstm-border">
-                    <form action="edit.php" method="post">
+                    <form action="edit.php?id=<?= $_GET['id'] ?>" method="post">
                         <label><input type="hidden" name="id" value="<?= $_GET['id'] ?>"></label>
-                        <label class="cstm-border"><input type="text" name="title" value="<?= $user_data['preferences']['title'] ?>"></label><br>
-                        <label class="cstm-border"><input type="text" name="quote" value="<?= $user_data['preferences']['quote'] ?>"></label><br>
+                        <h5 class="header-text">Title</h5>
+                        <label class="cstm-border"><input type="text" name="title" value="<?= $user_data['preferences']['title'] ?>" placeholder="Ex. The Greatest!"></label><br>
+                        <h5 class="header-text">Quote</h5>
+                        <label class="cstm-border"><input type="text" name="quote" value="<?= $user_data['preferences']['quote'] ?>" placeholder="Ex. 'I did all that I could'"></label><br>
+                        <h5 class="header-text">Bio</h5>
                         <label class="cstm-border"><textarea type="text" name="bio"><?= $user_data['preferences']['bio'] ?></textarea></label><br>
                         <!--<label class="cstm-border"><input type="text" value="image"></label><br>-->
                         <span><button class="btn btn-primary" name="save">Save</button></span>
-                        <span><button class="btn btn-secondary" name="cancel">Cancel</button></span>
+                        <span><a class="btn btn-secondary" href="detail.php?id=<?= $_GET['id'] ?>">Cancel</a></span>
                     </form>
                 </div>
             </div>

@@ -1,7 +1,6 @@
 <?php
 require_once '../_libs/json.php';
 $user_data = readJSON('../_assets/data/users/'.$_GET['id'].'/'.$_GET['id'].'.json');
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,10 +44,11 @@ $user_data = readJSON('../_assets/data/users/'.$_GET['id'].'/'.$_GET['id'].'.jso
                 <div class="col text-center">
                     <img class="user-img-large" src="<?= $user_data['preferences']['img']?>" alt="<?= $user_data['username'] ?>"><br>
                     <h3><?= $user_data['username']?></h3>
-                    <h4><?= $user_data['preferences']['title']?></h4>
+                    <h5><?= $user_data['preferences']['title']?></h5>
+                    <h5>"<?= $user_data['preferences']['quote']?>"</h5>
                     <h5>Member since: <?= $user_data['date_joined']['month']?>/<?= $user_data['date_joined']['day']?>/<?= $user_data['date_joined']['year']?></h5>
                     <span><a class="btn btn-primary" href="edit.php?id=<?= $_GET['id'] ?>">Edit</a></span>
-                    <span><a class="btn btn-danger" href="delete.php?id=<?= $_GET['id'] ?>">Delete</a></span>
+                    <span><button class="btn btn-danger" onclick="confirmDelete()" value="">Delete</button></span>
                 </div>
             </div>
         </div>
@@ -63,6 +63,13 @@ $user_data = readJSON('../_assets/data/users/'.$_GET['id'].'/'.$_GET['id'].'.jso
         crossorigin="anonymous"></script>
 <script src="../_assets/js/bootstrap.js"></script>
 <script src="../_assets/js/zg-skeleton.js"></script>
+<script>
+    function confirmDelete(){
+        if(confirm("Delete profile?")){
+            window.location.replace('delete.php?id=<?= $_GET['id'] ?>');
+        }
+    }
+</script>
 
 </body>
 </html>

@@ -8,7 +8,7 @@ function display_user(){
     $user_directory = readCSV('../_assets/data/users/user_directory.csv');
     //TODO: Add user
 
-    for($i = 0; $i < count($user_directory); $i++){
+    for($i = 2; $i < count($user_directory); $i++){ //Minus 2 to compensate for the first two entries being ded
         $key = $user_directory[$i][1];
 
         $user_data = readJSON('../_assets/data/users/'.$key.'/'.$key.'.json');

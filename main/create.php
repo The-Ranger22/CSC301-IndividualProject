@@ -12,9 +12,6 @@ if(!passwordMatches($_POST['password'], $_POST['confirm_password']) || usernameE
 else{
     addUser($_POST['username'], $_POST['password'], $_POST['DOB_Month'].'/'.$_POST['DOB_Day'].'/'.$_POST['DOB_Year'], $_POST['fname'], $_POST['lname']);
 }
-
-
-
 //Checks the given username to see if it already exists. Returns boolean.
 function usernameExists($givenUsername){
     //TODO: Write code to check if the given username is already in use
@@ -30,8 +27,14 @@ function passwordMatches($password, $password2){
 }
 
 function addUser($username, $password, $DoB, $fname, $lname){
+
+
+
     $file = '../_assets/data/users/user_directory.csv';
-    $userID = "user" . lengthOfCSV($file);
+    $arrCSV = readCSV($file);
+    $userID = "user" . $arrCSV[0][1];
+    $arrCSV[0][1]++;
+    modifyCSVEntry($file, $arrCSV[0], 0);
     writeCSV($file, $username .';'. $userID);
 
 
