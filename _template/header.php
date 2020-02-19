@@ -1,5 +1,9 @@
+<?php
+
+echo('
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -10,26 +14,16 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../_assets/css/bootstrap.css">
     <link rel="stylesheet" href="../_assets/css/zeitgeist-main.css">
-    <title>Temp</title>
+    <title>Index</title>
 </head>
 <body id="animate-area">
-<label onclick="viewMode()" id="dark_mode"></label>
+
 <div class="container">
     <div class="row">
         <div class="col"></div>
         <div class="col-11">
-            <div class="row standard-container"></div>
-        </div>
-        <div class="col"></div>
+            <div class="row spacer2"></div>
+            
 
-    </div>
-</div>
+');
 
-<script src="../_assets/js/jQuery.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-<script src="../_assets/js/bootstrap.js"></script>
-<script src="../_assets/js/zg-skeleton.js"></script>
-</body>
-</html>

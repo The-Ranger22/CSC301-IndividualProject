@@ -1,8 +1,4 @@
 <?php
-//TODO: Add sign up button
-$uName = '';
-$uPassword = '';
-
 $title = 'Zeitgeist_';
 
 
@@ -21,33 +17,24 @@ $title = 'Zeitgeist_';
     <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <title>Login - zeitgeist</title>
 </head>
-<body class="light-mode" onresize="setTitlePos(getPosX(), getPosY())">
-<!--dark mode button-->
-<label onclick="viewMode()" id="dark_mode">Light</label>
+<body id="animate-area" onresize="setTitlePos(getPosX(), getPosY())">
+
 
 <div class="container">
     <div class="" id="title_splash">
-        <h1 class='f-ps2p' id='title_text'>
-            <span class="c-red">Z</span>
-            <span class="c-purple">e</span>
-            <span class="c-blue">i</span>
-            <span class="c-green">t</span>
-            <span class="c-yellow">g</span>
-            <span class="c-orange">e</span>
-            <span class="c-pink">i</span>
-            <span class="c-white">s</span>
-            <span class="c-black">t</span>
-
+        <h1 class='f-ps2p header-text' id='title_text'>
+            <?= $title ?>
         </h1>
         <div class="row">
             <div class="col"></div>
-        <form class="col-10 cstm-border nav-container align-items-center" id="login_form" action="login.php">
-            <input class="col login_field cstm-border" type="text" name="username"  placeholder="username">
-            <br class="">
-            <input class="col login_field cstm-border" type="password" name="password" placeholder="password">
-            <br class="">
-            <input type="submit" value="LOGIN"><br>
-        </form>
+            <form class="col-10 cstm-border nav-container align-items-center" id="login_form" action="login.php">
+                <input class="col login_field cstm-border" type="text" name="username" placeholder="username">
+                <br class="">
+                <input class="col login_field cstm-border" type="password" name="password" placeholder="password">
+                <br class="">
+                <span><input class="btn btn-primary" type="submit" value="LOGIN"></span>
+                <span><a class="btn btn-secondary" href="signup.html">Sign Up</a></span>
+            </form>
             <div class="col"></div>
         </div>
     </div>

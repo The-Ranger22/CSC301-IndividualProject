@@ -47,7 +47,7 @@ $user_data = readJSON('../_assets/data/users/'.$_GET['id'].'/'.$_GET['id'].'.jso
                     <h5><?= $user_data['preferences']['title']?></h5>
                     <h5>"<?= $user_data['preferences']['quote']?>"</h5>
                     <h5>Member since: <?= $user_data['date_joined']['month']?>/<?= $user_data['date_joined']['day']?>/<?= $user_data['date_joined']['year']?></h5>
-                    <span><a class="btn btn-primary" href="edit.php?id=<?= $_GET['id'] ?>">Edit</a></span>
+                    <span><a class="btn btn-primary" href="user/editUser.php?id=<?= $_GET['id'] ?>">Edit</a></span>
                     <span><button class="btn btn-danger" onclick="confirmDelete()" value="">Delete</button></span>
                 </div>
             </div>
@@ -66,7 +66,7 @@ $user_data = readJSON('../_assets/data/users/'.$_GET['id'].'/'.$_GET['id'].'.jso
 <script>
     function confirmDelete(){
         if(confirm("Delete profile?")){
-            window.location.replace('delete.php?id=<?= $_GET['id'] ?>');
+            window.location.replace('user/deleteUser.php?id=<?= $_GET['id'] ?>');
         }
     }
 </script>

@@ -1,6 +1,6 @@
 <?php
-require_once('../_libs/json.php');
-require_once('../_libs/csv.php');
+require_once('../../_libs/json.php');
+require_once('../../_libs/csv.php');
 
 //TODO: KEEP CODE FROM EXECUTING UPON REFRESH -- REQUIRE A TOKEN OF SOME KIND THAT EXPIRES UPON REFRESH
 
@@ -15,7 +15,7 @@ else{
 //Checks the given username to see if it already exists. Returns boolean.
 function usernameExists($givenUsername){
     //TODO: Write code to check if the given username is already in use
-    if(in_array($givenUsername, readCSV('../_assets/data/users/user_directory.csv'))) return true;
+    if(in_array($givenUsername, readCSV('../../_assets/data/users/user_directory.csv'))) return true;
     else return false;
 
 
@@ -30,7 +30,7 @@ function addUser($username, $password, $DoB, $fname, $lname){
 
 
 
-    $file = '../_assets/data/users/user_directory.csv';
+    $file = '../../_assets/data/users/user_directory.csv';
     $arrCSV = readCSV($file);
     $userID = "user" . $arrCSV[0][1];
     $arrCSV[0][1]++;
@@ -49,7 +49,7 @@ function addUser($username, $password, $DoB, $fname, $lname){
             'title' => null,
             'quote' => null,
             'bio' => null,
-            'img' => '../_assets/img/profile-placeholder.png'
+            'img' => '../../_assets/img/profile-placeholder.png'
         ],
         'date_joined' =>[
             'day'=>date('d'),
@@ -59,12 +59,13 @@ function addUser($username, $password, $DoB, $fname, $lname){
         ]
     ];
 
-    if(!is_dir('../_assets/data/users/'.$userID)) {
-        mkdir('../_assets/data/users/' . $userID);
+    if(!is_dir('../../_assets/data/users/'.$userID)) {
+        mkdir('../../_assets/data/users/' . $userID);
     }
-    writeJSON('../_assets/data/users/'.$userID.'/'.$userID.'.json', $userData);
+    writeJSON('../../_assets/data/users/'.$userID.'/'.$userID.'.json', $userData);
+    mkdir('../../_assets/data/users/'.$userID.'/posts');
 
-    header('Location: detail.php?id='.$userID);
+    header('Location: ../detail.php?id='.$userID);
     die();
 
 }
