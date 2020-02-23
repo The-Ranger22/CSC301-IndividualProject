@@ -3,8 +3,9 @@ echo '<pre>';
 
 //deleteCSVEntry('beatles.csv', 1);
 //modifyCSVEntry('beatles.csv', [0 => "Baker", 1 => "Church" ], 0);
-print_r(readAtCSV('beatles.csv', 1));
-print_r(readCSV('beatles.csv'));
+
+$posts = scandir('../_assets/data/users/user1/posts');
+print_r($posts);
 
 function writeCSV($file,$data){
     $h=fopen($file,file_exists($file) ? 'a' : 'w+');

@@ -62,4 +62,18 @@ function indexOfCSV($file, $entry){
     echo 'index of entry not found';
     die();
 }
+function containedInCSV($file, $element){
+    $isPresent = false;
+    $h=fopen($file,'r');
+    while(!(feof($h))){
+        $line = fgets($h);
+        if(strstr($line, $element)) {
+            $isPresent = true;
+            break;
+        }
+    }
+    fclose($h);
+    return $isPresent;
+}
+
 

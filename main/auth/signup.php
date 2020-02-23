@@ -1,3 +1,36 @@
+<?php
+require_once('../../_libs/csv.php');
+/*TODO:
+ * 1. create registration form
+ * 2. when user submits
+ */
+
+function signup(){
+    if(count($_POST)>0){
+        if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) return ('Invalid email.');
+
+        $_POST['password'] = trim($_POST['password']);
+        if(strlen($_POST['password'])<8) return ('password is too short');
+
+//        $h=fopen('../../_assets/data/users/user_directory.csv','r');
+//        while(!(feof($h))){
+//            $line = fgets($h);
+//            if(strstr($line, $_POST['email'])) die('email already in use');
+//        }
+//        fclose($h);
+
+        if(containedInCSV('../../_assets/data/users/user_directory.csv', $_POST['username'])){
+            return 'Username already in use.';
+        }
+        if(containedInCSV('../../_assets/data/users/user_directory.csv', $_POST['email'])){
+            return 'Email already in use.';
+        }
+        $_POST['password']=password_hash($_POST['password'], PASSWORD_DEFAULT);
+        print_r($_POST);
+    }
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,8 +41,8 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../_assets/css/bootstrap.css">
-    <link rel="stylesheet" href="../_assets/css/zeitgeist-main.css">
+    <link rel="stylesheet" href="../../_assets/css/bootstrap.css">
+    <link rel="stylesheet" href="../../_assets/css/zeitgeist-main.css">
     <title>Sign up - Zeitgeist</title>
 </head>
 <body id="animate-area">
@@ -21,9 +54,11 @@
 
             <div class="row">
                 <div class="col">
-                    <form action="user/createUser.php" method="POST">
+                    <form action="../user/createUser.php" method="POST">
                         Username:
                         <label><input type="text" name="username" placeholder="username" required></label><br>
+                        Email:
+                        <label><input type="email" name="email" placeholder="mail@email.com" required></label><br>
                         First Name:
                         <label><input type="text" name="fname" placeholder="John"></label><br>
                         Last Name:
@@ -31,6 +66,7 @@
                         Date of Birth:
                         <span>
                             <label><select name="DOB_Month">
+                                    <option value="0">month</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -47,6 +83,7 @@
                         </span>
                         <span>
                             <label><select name="DOB_Day">
+                                    <option value="0">day</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -82,14 +119,15 @@
                         </span>
                         <span>
                             <label><select name="DOB_Year">
+                                    <option value="0">year</option>
                                 <option value="1990">1990</option> <!--TODO: Add more dates, preferably with JS-->
                             </select></label>
                         </span>
                         <br>
                         Password:
-                        <label><input type="password" name="password"></label><br>
+                        <label><input type="password" name="password" required minlength="8"></label><br>
                         Confirm Password:
-                        <label><input type="password" name="confirm_password"></label><br>
+                        <label><input type="password" name="confirm_password" required></label><br>
                         <button type="submit" value="submit">Submit</button>
                     </form>
                 </div>
@@ -100,11 +138,11 @@
     </div>
 </div>
 
-<script src="../_assets/js/jQuery.js"></script>
+<script src="../../_assets/js/jQuery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
-<script src="../_assets/js/bootstrap.js"></script>
-<script src="../_assets/js/zg-skeleton.js"></script>
+<script src="../../_assets/js/bootstrap.js"></script>
+<script src="../../_assets/js/zg-skeleton.js"></script>
 </body>
 </html>

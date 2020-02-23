@@ -12,6 +12,12 @@ function deleteUser($u_id, $u_directory){
     modifyCSVEntry($u_directory, $dir_arr[1], 1);
 
     unlink('../../_assets/data/users/'.$u_id.'/'.$u_id.'.json');
+    $posts = scandir('../../_assets/data/users/'.$u_id.'/posts');
+    for($i = 2; $i < count($posts); $i++){
+        $post = $posts[$i];
+        unlink('../../_assets/data/users/'.$u_id.'/posts/'.$post);
+    }
+    rmdir('../../_assets/data/users/'.$u_id.'/posts');
     rmdir('../../_assets/data/users/'.$u_id.'/');
     deleteCSVEntry($u_directory, indexOfCSV($u_directory, $u_id));
     header('Location: ../index.php');

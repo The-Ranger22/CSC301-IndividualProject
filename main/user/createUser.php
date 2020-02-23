@@ -3,14 +3,16 @@ require_once('../../_libs/json.php');
 require_once('../../_libs/csv.php');
 
 //TODO: KEEP CODE FROM EXECUTING UPON REFRESH -- REQUIRE A TOKEN OF SOME KIND THAT EXPIRES UPON REFRESH
+//TODO: Add check for duplicate usernames/emails
+//TODO: Add check for email validity
+//TODO: Encrypt password
 
 if(!passwordMatches($_POST['password'], $_POST['confirm_password']) || usernameExists($_POST['username'])){
     if(!passwordMatches($_POST['password'], $_POST['confirm_password'])) echo "Password does not match!";
-    if(usernameExists($_POST['username'])) echo "Username is taken!";
     die(); //TODO: Redirect user back to sign up
 }
 else{
-    addUser($_POST['username'], $_POST['password'], $_POST['DOB_Month'].'/'.$_POST['DOB_Day'].'/'.$_POST['DOB_Year'], $_POST['fname'], $_POST['lname']);
+    addUser($_POST['username'], $_POST['password'], $_POST['DOB_Month'].'/'.$_POST['DOB_Day'].'/'.$_POST['DOB_Year'],$_POST['email'], $_POST['fname'], $_POST['lname']);
 }
 //Checks the given username to see if it already exists. Returns boolean.
 function usernameExists($givenUsername){
@@ -26,9 +28,7 @@ function passwordMatches($password, $password2){
     else return false;
 }
 
-function addUser($username, $password, $DoB, $fname, $lname){
-
-
+function addUser($username, $email, $password, $DoB, $fname, $lname){
 
     $file = '../../_assets/data/users/user_directory.csv';
     $arrCSV = readCSV($file);
@@ -37,9 +37,9 @@ function addUser($username, $password, $DoB, $fname, $lname){
     modifyCSVEntry($file, $arrCSV[0], 0);
     writeCSV($file, $username .';'. $userID);
 
-
     $userData = [
         'username' => $username,
+        'email' => $email,
         'password' => $password, //TODO: Encrypt password
         'id' => $userID,
         'DoB' => $DoB,
