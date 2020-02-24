@@ -16,10 +16,34 @@ $test_arr = [
         'required' => true
     ],
     [
-        'tag' => 'selection',
+        'tag' => 'select',
+        'name' => 'month',
         'isINT' => true,
         'isSTRING' => false,
-        
+        'options' =>[
+            1,
+            12
+        ]
+    ],
+    [
+        'tag' => 'select',
+        'name' => 'day',
+        'isINT' => true,
+        'isSTRING' => false,
+        'options' =>[
+            1,
+            30
+        ]
+    ],
+    [
+        'tag' => 'select',
+        'name' => 'year',
+        'isINT' => true,
+        'isSTRING' => false,
+        'options' =>[
+            1920,
+            2020
+        ]
     ]
 ];
 

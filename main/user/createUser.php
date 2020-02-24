@@ -28,7 +28,7 @@ function passwordMatches($password, $password2){
     else return false;
 }
 
-function addUser($username, $email, $password, $DoB, $fname, $lname){
+function addUser($username, $email, $password, $DoB, $fname='', $lname=''){
 
     $file = '../../_assets/data/users/user_directory.csv';
     $arrCSV = readCSV($file);

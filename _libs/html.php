@@ -1,5 +1,5 @@
 <?php
-function pageHeaderHTML($pageTitle){
+function pageHeaderHTML($pageTitle, $path=''){
     echo('
 
 <!DOCTYPE html>
@@ -12,8 +12,8 @@ function pageHeaderHTML($pageTitle){
     <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../_assets/css/bootstrap.css">
-    <link rel="stylesheet" href="../_assets/css/zeitgeist-main.css">
+    <link rel="stylesheet" href="'.$path.'../_assets/css/bootstrap.css">
+    <link rel="stylesheet" href="'.$path.'../_assets/css/zeitgeist-main.css">
     <title>'.$pageTitle.'</title>
 </head>
 <body id="animate-area">
@@ -27,7 +27,7 @@ function pageHeaderHTML($pageTitle){
 
 ');
 }
-function pageFooterHTML(){
+function pageFooterHTML($path=''){
     echo('
 
             </div>
@@ -37,12 +37,12 @@ function pageFooterHTML(){
     </div>
 </div>
 
-<script src="../_assets/js/jQuery.js"></script>
+<script src="'.$path.'../_assets/js/jQuery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
-<script src="../_assets/js/bootstrap.js"></script>
-<script src="../_assets/js/zg-skeleton.js"></script>
+<script src="'.$path.'../_assets/js/bootstrap.js"></script>
+<script src="'.$path.'../_assets/js/zg-skeleton.js"></script>
 </body>
 </html>
 
@@ -51,11 +51,11 @@ function pageFooterHTML(){
 function addHeaderHTML($text, $size){
     if($size > 6 || $size < 1){
         echo('
-        <h6>html.php->addHeader Error: size is out of bounds. Must be a value between 1 and 6</h6>
+        <h6 class="header-text">html.php->addHeader Error: size is out of bounds. Must be a value between 1 and 6</h6>
         ');
     }
     else{
-        echo('<h'.$size.'>'.$text.'</h'.$size.'>');
+        echo('<h'.$size.' class="header-text">'.$text.'</h'.$size.'>');
     }
 }
 function startContainerHTML(){
@@ -91,14 +91,27 @@ function addNavItemHTML($filepath, $name){
 
 function generateHTMLForm($action, $method, $inputArr){
     echo('<form action="'.$action.'" method="'.$method.'">');
+
     for($i = 0; $i < count($inputArr); $i++){
-        echo($inputArr[$i]['name'] . ':');
-        if($inputArr[$i]['required']) {
-            echo('<label><input type="' . $inputArr[$i]['type'] . '" name="' . $inputArr[$i]['name'] . '" placeholder="' . $inputArr[$i]['placeholder'] . '" required></label><br>');
-        }
-        else{
-            echo('<label><input type="' . $inputArr[$i]['type'] . '" name="' . $inputArr[$i]['name'] . '" placeholder="' . $inputArr[$i]['placeholder'] . '"></label><br>');
+        if(strtolower($inputArr[$i]['tag']) == 'input') {
+            echo($inputArr[$i]['name'] . ':');
+            if ($inputArr[$i]['required']) {
+                echo('<label><input type="' . $inputArr[$i]['type'] . '" name="' . $inputArr[$i]['name'] . '" placeholder="' . $inputArr[$i]['placeholder'] . '" required></label><br>');
+            } else {
+                echo('<label><input type="' . $inputArr[$i]['type'] . '" name="' . $inputArr[$i]['name'] . '" placeholder="' . $inputArr[$i]['placeholder'] . '"></label><br>');
+            }
+        } else if(strtolower($inputArr[$i]['tag']) == 'select'){
+            echo('<label><select name="'.$inputArr[$i]['name'].'">');
+            if($inputArr[$i]['isINT'] == true){
+                for ($j = $inputArr[$i]['options'][0]; $j <= $inputArr[$i]['options'][1]; $j++){
+                    echo('<option value="'.$j.'">'.$j.'</option>');
+                }
+            }
+            echo('</select></label>');
         }
     }
+    echo('<br>');
+    echo('<button type="submit" value="submit">Submit</button>');
     echo('</form>');
 }
+
