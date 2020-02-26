@@ -1,6 +1,7 @@
 <?php
 require_once('../../_libs/csv.php');
 require_once('../../_libs/html.php');
+require_once('../user/createUser.php');
 /*TODO:
  * 1. create registration form
  * 2. when user submits
@@ -68,6 +69,8 @@ generateHTMLForm('signup.php', 'post', $formArr);
 endContainerHTML();
 pageFooterHTML('../');
 
+signup();
+
 
 function signup(){
     if(count($_POST)>0){
@@ -92,6 +95,10 @@ function signup(){
         $_POST['password']=password_hash($_POST['password'], PASSWORD_DEFAULT);
         //print_r($_POST);
         $_POST['DoB'] = $_POST['month'].'-'.$_POST['day'].'-'.$_POST['year'];
+
+
+        addUser($_POST['username'],$_POST['email'],$_POST['password'],$_POST['DoB']);
+        header('Location: signin.php');
     }
 
 }

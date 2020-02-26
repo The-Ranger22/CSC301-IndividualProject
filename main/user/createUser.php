@@ -7,13 +7,13 @@ require_once('../../_libs/csv.php');
 //TODO: Add check for email validity
 //TODO: Encrypt password
 
-if(!passwordMatches($_POST['password'], $_POST['confirm_password']) || usernameExists($_POST['username'])){
-    if(!passwordMatches($_POST['password'], $_POST['confirm_password'])) echo "Password does not match!";
-    die(); //TODO: Redirect user back to sign up
-}
-else{
-    addUser($_POST['username'], $_POST['password'], $_POST['DOB_Month'].'/'.$_POST['DOB_Day'].'/'.$_POST['DOB_Year'],$_POST['email'], $_POST['fname'], $_POST['lname']);
-}
+//if(!passwordMatches($_POST['password'], $_POST['confirm_password']) || usernameExists($_POST['username'])){
+//    if(!passwordMatches($_POST['password'], $_POST['confirm_password'])) echo "Password does not match!";
+//    die(); //TODO: Redirect user back to sign up
+//}
+//else{
+//    addUser($_POST['username'], $_POST['password'], $_POST['DOB_Month'].'/'.$_POST['DOB_Day'].'/'.$_POST['DOB_Year'],$_POST['email'], $_POST['fname'], $_POST['lname']);
+//}
 //Checks the given username to see if it already exists. Returns boolean.
 function usernameExists($givenUsername){
     //TODO: Write code to check if the given username is already in use
@@ -65,7 +65,6 @@ function addUser($username, $email, $password, $DoB, $fname='', $lname=''){
     writeJSON('../../_assets/data/users/'.$userID.'/'.$userID.'.json', $userData);
     mkdir('../../_assets/data/users/'.$userID.'/posts');
 
-    header('Location: ../detail.php?id='.$userID);
     die();
 
 }

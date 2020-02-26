@@ -18,7 +18,7 @@ $formArr = [
         'required' => true
     ]
 ];
-
+session_start();
 pageHeaderHTML('Sign_In', '../');
 addHeaderHTML("Zeitgeist/Sign_In", 1);
 startContainerHTML();
