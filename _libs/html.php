@@ -31,9 +31,9 @@ function pageFooterHTML($path=''){
     echo('
 
             </div>
-        </div>
+        
         <div class="col"></div>
-
+        </div>
     </div>
 </div>
 
@@ -94,11 +94,16 @@ function generateHTMLForm($action, $method, $inputArr){
 
     for($i = 0; $i < count($inputArr); $i++){
         if(strtolower($inputArr[$i]['tag']) == 'input') {
-            echo($inputArr[$i]['name'] . ':');
-            if ($inputArr[$i]['required']) {
-                echo('<label><input type="' . $inputArr[$i]['type'] . '" name="' . $inputArr[$i]['name'] . '" placeholder="' . $inputArr[$i]['placeholder'] . '" required></label><br>');
-            } else {
-                echo('<label><input type="' . $inputArr[$i]['type'] . '" name="' . $inputArr[$i]['name'] . '" placeholder="' . $inputArr[$i]['placeholder'] . '"></label><br>');
+            if(strtolower($inputArr[$i]['type']) == 'hidden'){
+                echo('<label><input type="' . $inputArr[$i]['type'] . '" name="' . $inputArr[$i]['name'] . '"  value="success"></label><br>');
+            }
+            else {
+                echo($inputArr[$i]['name'] . ':');
+                if ($inputArr[$i]['required']) {
+                    echo('<label><input type="' . $inputArr[$i]['type'] . '" name="' . $inputArr[$i]['name'] . '" placeholder="' . $inputArr[$i]['placeholder'] . '" required></label><br>');
+                } else {
+                    echo('<label><input type="' . $inputArr[$i]['type'] . '" name="' . $inputArr[$i]['name'] . '" placeholder="' . $inputArr[$i]['placeholder'] . '"></label><br>');
+                }
             }
         } else if(strtolower($inputArr[$i]['tag']) == 'select'){
             echo('<label><select name="'.$inputArr[$i]['name'].'">');

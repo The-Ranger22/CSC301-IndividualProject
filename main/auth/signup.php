@@ -1,6 +1,7 @@
 <?php
 require_once('../../_libs/csv.php');
 require_once('../../_libs/html.php');
+require_once('../../_libs/auth.php');
 require_once('../user/createUser.php');
 /*TODO:
  * 1. create registration form
@@ -8,6 +9,12 @@ require_once('../user/createUser.php');
  */
 
 $formArr = [
+    [
+        'tag' => 'input',
+        'name' => 'status',
+        'type' => 'hidden',
+        'value' => 'success'
+    ],
     [
         'tag' => 'input',
         'name' => 'username',
@@ -61,45 +68,25 @@ $formArr = [
         ]
     ]
 ];
-
 pageHeaderHTML('Sign_Up', '../');
 addHeaderHTML("Zeitgeist/Sign_Up", 1);
 startContainerHTML();
-generateHTMLForm('signup.php', 'post', $formArr);
+if(!(isset($_POST['status']))){
+    generateHTMLForm('signup.php', 'post', $formArr);
+} else if($_POST['status'] == 'success'){
+    echo('<div>Sign up successful! Click <a href="signin.php">here</a> to sign in!</div>');
+
+}
+
 endContainerHTML();
 pageFooterHTML('../');
 
-signup();
+
+echo(sign_up());
+
+//if(signup() == 'success'){
+//    header('Location: signin.php');
+//}
 
 
-function signup(){
-    if(count($_POST)>0){
-        if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) return ('Invalid email.');
-
-        $_POST['password'] = trim($_POST['password']);
-        if(strlen($_POST['password'])<8) return ('password is too short');
-
-//        $h=fopen('../../_assets/data/users/user_directory.csv','r');
-//        while(!(feof($h))){
-//            $line = fgets($h);
-//            if(strstr($line, $_POST['email'])) die('email already in use');
-//        }
-//        fclose($h);
-
-        if(containedInCSV('../../_assets/data/users/user_directory.csv', $_POST['username'])){
-            return 'Username already in use.';
-        }
-        if(containedInCSV('../../_assets/data/users/user_directory.csv', $_POST['email'])){
-            return 'Email already in use.';
-        }
-        $_POST['password']=password_hash($_POST['password'], PASSWORD_DEFAULT);
-        //print_r($_POST);
-        $_POST['DoB'] = $_POST['month'].'-'.$_POST['day'].'-'.$_POST['year'];
-
-
-        addUser($_POST['username'],$_POST['email'],$_POST['password'],$_POST['DoB']);
-        header('Location: signin.php');
-    }
-
-}
 

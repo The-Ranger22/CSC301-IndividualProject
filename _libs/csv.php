@@ -17,8 +17,7 @@ function readCSV($file){
 //Expects index to be withing the range of 0 to the length of the CSV file - 1
 function readAtCSV($file, $index){
     $fileArr = file($file);
-    $output = explode(';', $fileArr[$index]);
-    return $output;
+    return explode(';', $fileArr[$index]);
 }//Works
 
 function deleteCSVEntry($file, $index){

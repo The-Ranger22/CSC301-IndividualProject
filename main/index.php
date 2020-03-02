@@ -2,9 +2,13 @@
 require_once '../_libs/csv.php';
 require_once '../_libs/json.php';
 require_once '../_libs/html.php';
+require_once '../_libs/auth.php';
+
+//if(!(session_logged('user'))) header('Location: auth/signin.php');
 
 //MAIN BODY START
-require_once '../_template/header.php';
+
+pageHeaderHTML('Index');
 
 startNavbarHTML();
 addNavItemHTML('index.php', 'Home');
@@ -15,14 +19,14 @@ startContainerHTML();
 display_user();
 endContainerHTML();
 
-require_once '../_template/footer.php';
+pageFooterHTML();
 //MAIN BODY END
 function display_user(){
     $user_directory = readCSV('../_assets/data/users/user_directory.csv');
     //TODO: Add user
 
     for($i = 2; $i < count($user_directory); $i++){ //Minus 2 to compensate for the first two entries being ded
-        $key = $user_directory[$i][1];
+        $key = $user_directory[$i][2];
 
         $user_data = readJSON('../_assets/data/users/'.$key.'/'.$key.'.json');
 

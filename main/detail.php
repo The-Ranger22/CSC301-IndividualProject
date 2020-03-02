@@ -48,7 +48,7 @@ $user_data = readJSON('../_assets/data/users/'.$_GET['id'].'/'.$_GET['id'].'.jso
                     <h5>"<?= $user_data['preferences']['quote']?>"</h5>
                     <h5>Member since: <?= $user_data['date_joined']['month']?>/<?= $user_data['date_joined']['day']?>/<?= $user_data['date_joined']['year']?></h5>
                     <span><a class="btn btn-primary" href="user/editUser.php?id=<?= $_GET['id'] ?>">Edit</a></span>
-                    <span><button class="btn btn-danger" onclick="confirmDelete()" value="">Delete</button></span>
+                    <span><button class="btn btn-danger" onclick="confirmDelete('user/deleteUser.php?id=<?= $_GET['id'] ?>', 'Delete User?')" value="">Delete</button></span>
                 </div>
             </div>
         </div>
@@ -64,9 +64,12 @@ $user_data = readJSON('../_assets/data/users/'.$_GET['id'].'/'.$_GET['id'].'.jso
 <script src="../_assets/js/bootstrap.js"></script>
 <script src="../_assets/js/zg-skeleton.js"></script>
 <script>
-    function confirmDelete(){
-        if(confirm("Delete profile?")){
-            window.location.replace('user/deleteUser.php?id=<?= $_GET['id'] ?>');
+
+    //confirmDelete('user/deleteUser.php?id=<?= $_GET['id'] ?>',"Delete User?");
+
+    function confirmDelete(url, message){
+        if(confirm(message)){
+            window.location.replace(url);
         }
     }
 </script>
