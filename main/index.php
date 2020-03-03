@@ -4,16 +4,23 @@ require_once '../_libs/json.php';
 require_once '../_libs/html.php';
 require_once '../_libs/auth.php';
 
-//if(!(session_logged('user'))) header('Location: auth/signin.php');
+session_start();
+
+if(!(session_logged('user'))) header('Location: auth/signin.php');
 
 //MAIN BODY START
 
 pageHeaderHTML('Index');
 
-startNavbarHTML();
-addNavItemHTML('index.php', 'Home');
-addNavItemHTML('signup.html','sign up');
-endNavbarHTML();
+//startNavbarHTML();
+//addNavItemHTML('index.php', 'Home');
+//addNavItemHTML('signup.html','sign up');
+//endNavbarHTML();
+
+require_once('../_template/nav.php');
+
+startContainerHTML();
+endContainerHTML();
 
 startContainerHTML();
 display_user();
@@ -38,4 +45,5 @@ function display_user(){
         echo '</div></span>';
     }
 }
-?>
+function display_post(){}
+

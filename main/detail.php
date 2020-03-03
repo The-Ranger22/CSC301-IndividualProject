@@ -1,5 +1,8 @@
 <?php
 require_once '../_libs/json.php';
+require_once '../_libs/auth.php';
+session_start();
+if(!(session_logged('user'))) header('Location: auth/signin.php');
 $user_data = readJSON('../_assets/data/users/'.$_GET['id'].'/'.$_GET['id'].'.json');
 ?>
 <!DOCTYPE html>

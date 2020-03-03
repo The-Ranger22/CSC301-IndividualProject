@@ -2,12 +2,16 @@
 require_once ('../../_libs/csv.php');
 require_once ('../../_libs/html.php');
 require_once('../../_libs/auth.php');
+session_start();
+print_r($_SESSION);
+
+
 if(isset($_POST['status'])){
     $_POST = [];
 }
 if(isset($_POST['token'])){
     echo(sign_in('../../_assets/data/users/user_directory.csv'));
-    if(isset($_SESSION)){
+    if(isset($_SESSION['user'])){
         header('Location: ../index.php');
     }
 }
@@ -31,7 +35,7 @@ $formArr = [
         'type' => 'hidden'
     ]
 ];
-session_start();
+
 pageHeaderHTML('Sign_In', '../');
 addHeaderHTML("Zeitgeist/Sign_In", 1);
 startContainerHTML();

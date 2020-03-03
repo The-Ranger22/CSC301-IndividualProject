@@ -21,6 +21,7 @@ function sign_in($user_directory){
         $user_data = readJSON('../../_assets/data/users/'.$user_id.'/'.$user_id.'.json');
 
         $_POST['password'] = trim($_POST['password']);
+        //$_POST['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
 
         if(!password_verify($_POST['password'], $user_data['password'])){
@@ -69,7 +70,7 @@ function sign_out(){
     //destroy session
     session_destroy();
     //redirect session to sign in page
-
+    header('Location: signin.php');
 }
 function session_logged($id_field){
     return isset($_SESSION[$id_field]{0});
