@@ -3,14 +3,14 @@ require_once ('../../_libs/csv.php');
 require_once ('../../_libs/html.php');
 require_once('../../_libs/auth.php');
 session_start();
-print_r($_SESSION);
+
 
 
 if(isset($_POST['status'])){
     $_POST = [];
 }
 if(isset($_POST['token'])){
-    echo(sign_in('../../_assets/data/users/user_directory.csv'));
+    $error_msg = sign_in('../../_assets/data/users/user_directory.csv');
     if(isset($_SESSION['user'])){
         header('Location: ../index.php');
     }
@@ -38,6 +38,13 @@ $formArr = [
 
 pageHeaderHTML('Sign_In', '../');
 addHeaderHTML("Zeitgeist/Sign_In", 1);
+if(isset($error_msg)){
+    if($error_msg != ''){
+        startContainerHTML();
+        echo('<['.$error_msg.']>');
+        endContainerHTML();
+    }
+}
 startContainerHTML();
 generateHTMLForm('signin.php', 'post', $formArr);
 endContainerHTML();

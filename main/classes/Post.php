@@ -1,28 +1,26 @@
 <?php
 
 
-class Post
+class Post extends Item
 {
     private $author;
     private $post_id;
     private $content;
 
+
     function __construct($author, $content)
     {
         $this->author = $author;
         $this->content = $content;
-        $this->post_id = self::generate_post_id();
+        $this->post_id = parent::generate_id();
     }
-    private static function generate_post_id(){
-        return -1;
-    }
-    function get_author(){
+    public function get_author(){
         return $this->author;
     }
-    function get_post_id(){
+    public function get_post_id(){
         return $this->post_id;
     }
-    function get_post_content(){
+    public function get_post_content(){
         return $this->content;
     }
 }

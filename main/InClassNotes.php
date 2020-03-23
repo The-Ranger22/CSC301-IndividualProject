@@ -1,4 +1,21 @@
 <?php
+include 'classes/Item.php';
+include 'classes/User.php';
+
+
+echo('<pre>');
+$a = new User('alpha', 'email.email', 'asdf');
+
+$a = serialize($a);
+
+echo $a."\n";
+
+$a = crypt($a);
+
+echo $a."\n";
+
+
+
 
 
 /*

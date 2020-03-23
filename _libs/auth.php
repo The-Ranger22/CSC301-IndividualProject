@@ -3,19 +3,17 @@ require_once("csv.php");
 require_once("json.php");
 function sign_in($user_directory){
     if(count($_POST) > 0){
-        echo('BEEP');
 
         if(!filter_var($_POST['username'], FILTER_VALIDATE_EMAIL)){
             if(!(containedInCSV($user_directory, $_POST['username']))){
                 return ('Account not found');
             }
         }
-        echo('Completed username check');
+
 
         $user_data = readAtCSV($user_directory, indexOfCSV($user_directory, $_POST['username']));
         $user_id = $user_data[2];
         $user_id = trim($user_id);
-        echo($user_id);
 
         //TODO: Abstract file path
         $user_data = readJSON('../../_assets/data/users/'.$user_id.'/'.$user_id.'.json');
@@ -23,12 +21,12 @@ function sign_in($user_directory){
         $_POST['password'] = trim($_POST['password']);
         //$_POST['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-
         if(!password_verify($_POST['password'], $user_data['password'])){
             return ('Incorrect password');
         }
-        echo('Completed password check');
+
         $_SESSION['user'] = $_POST['username'];
+        $_SESSION['user_id'] = $user_id;
         return ('');
 
 

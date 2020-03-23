@@ -73,10 +73,13 @@
 #dark_mode:hover{
     cursor: pointer;
 }
+.item{
+    word-wrap: break-word;
+    margin: 3px;
+}
 .user-img{
     max-width: 80px;
     min-width: 80px;
-    border-radius: 30px;
 }
 .user-img-large{
     max-width: 180px;
@@ -128,6 +131,7 @@
     border-image-repeat: repeat;
     border-image-slice: 30%;
 }
+
 .f-cm{
     font-family: 'Cutive Mono', monospace;
 }
@@ -146,6 +150,7 @@
 .f-ps2p{
     font-family: 'Press Start 2P', sans-serif;
 }
+
 
 .standard-container{
     background-color: #000035;

@@ -20,7 +20,7 @@ $user_data = readJSON('../_assets/data/users/'.$_GET['id'].'/'.$_GET['id'].'.jso
     <title><?= $user_data['username'].'_Zeitgeist' ?></title>
 </head>
 <body id="animate-area">
-
+<? //TODO: Redo page layout ?>
 <div class="container">
     <div class="row">
         <div class="col"></div>
