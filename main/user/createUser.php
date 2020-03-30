@@ -31,7 +31,7 @@ function addUser($username, $email, $password, $DoB, $fname='', $lname=''){
             'day'=>date('d'),
             'month'=>date('m'),
             'year'=>date('Y'),
-            'time'=>date('e h:i:s A') //TODO: FIX THE BLOODY TIMEZONE
+            'time'=>date('e h:i:s A')
         ]
     ];
 

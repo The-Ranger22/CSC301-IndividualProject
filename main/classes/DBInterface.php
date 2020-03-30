@@ -10,21 +10,28 @@ class DBInterface
 {
 
     //Handling User
-    public static function getUser($id){/*Returns a user object : User*/}
+    public static function getUser($user_id, $file){
+        /*Returns a user object : User*/
+        return -1;
+    }
     public static function getAllUsers(){/*Returns all users : User[]*/}
-    public static function searchUsers(){/*Searches through the DB for the specified post : Post*/}
-    public static function addUser($user){/*Adds a user : boolean*/}
-    public static function removeUser($user){/*Removes a user : boolean*/}
-    public static function updateUser($user){/*Updates a user : boolean*/}
+    public static function getUserTotal($file){
+        $csv = readAtCSV($file, 0);
+        return $csv[1];
+    }
+    public static function addUser($userString){
+        /*Adds a user : boolean*/
+    }
+    public static function removeUser($user_id, $file){/*Removes a user : boolean*/}
+    public static function updateUser($user_id, $user_details, $file){/*Updates a user : boolean*/}
     //Handling Post
     public static function getPost($post_id, $file){
         $post_arr = self::getAllPosts($file);
         foreach($post_arr as &$post){
             if ($post_id == $post->get_post_id()) return $post;
         }
-        return 'post not found';
+        return false;
     }
-    public static function getUserPosts($user_id = null){/*Returns posts of a specific user : Post*/}
     public static function getAllPosts($file){/*Returns all posts : Post[]*/
         $h=fopen($file,'r');
         $csv='';
@@ -41,13 +48,13 @@ class DBInterface
         }
         return $post_arr;
     }
-    public static function searchPosts(){/*Searches through the DB for the specified post : Post*/}
     public static function addPost($post, $post_id){/*Adds a post : boolean*/
         $csv = readCSV(POST_DIRECTORY);
         $csv[0][1]++;
         modifyCSVEntry(POST_DIRECTORY, $csv[0], 0);
         writeCSV(POST_DIRECTORY,  $post_id.";".base64_encode($post));
     }
+    //TODO:
     public static function removePost($post_id, $author_id){/*Removes a post : boolean*/}
     public static function updatePost($post_id, $author_id, $updated_post){/*Updates a post : boolean*/}
 
