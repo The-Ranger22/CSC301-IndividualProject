@@ -3,6 +3,8 @@ require_once '../_libs/csv.php';
 require_once '../_libs/json.php';
 require_once '../_libs/html.php';
 require_once '../_libs/auth.php';
+require_once 'classes/DBInterface.php';
+require_once 'classes/Post.php';
 
 session_start();
 
@@ -15,9 +17,8 @@ addHeaderHTML('Zeitgeist', 2);
 require_once('../_template/nav.php');
 
 addHeaderHTML('Latest Posts', 4);
-//startContainerHTML();
+positionElement(HTML_TAG_HYPERLINK, "Create Post", "class=\"btn header-text\" href=\"post/createPost.php\"", CSS_PROP_POS_ABSOLUTE, 1, null, 158, 5);
 display_post();
-//endContainerHTML();
 
 addHeaderHTML('Users', 4);
 startContainerHTML();
@@ -46,26 +47,29 @@ function display_user()
 
 function display_post()
 {
-    $post_directory = readCSV('../_assets/data/users/user_directory.csv');
-    for ($i = 2; $i < count($post_directory) - 1; $i++) {
-        $key = $post_directory[$i][2];
-        $user_data = readJSON('../_assets/data/users/' . $key . '/' . $key . '.json');
-        startContainerHTML();
+    $margin = 8;
+    $post_directory = DBInterface::getAllPosts("../_assets/data/posts/post_directory.csv");
+    for ($i = count($post_directory) - 1; $i > -1; $i--) {
         ?>
-        <div class="col-2">
-            <img class="user-img" src="<?= $user_data['preferences']['img'] ?>"
-                 alt="<?= $user_data['username'] ?>">
-            <h6 class="header-text"><?= $user_data['username'] ?></h6>
-
-        </div>
-
-        <div class="col-10">
-            <p>
-                THIS IS A TEST | THIS IS A TEST | THIS IS A TEST | THIS IS A TEST | THIS IS A TEST | THIS IS A TEST | THIS IS A TEST | THIS IS A TEST | THIS IS A TEST | THIS IS A TEST | THIS IS A TEST | THIS IS A TEST | THIS IS A TEST | THIS IS A TEST |
-            </p>
+        <div class="row">
+            <div class="col standard-container cstm-border" style="margin:<?=$margin?>px">
+                <h6 class="header-text"><?= $post_directory[$i]->get_author() ?></h6>
+            </div>
+            <div class="col-9" style="margin:<?=$margin?>px">
+                <div class="row standard-container cstm-border" style="margin-bottom:<?=$margin?>px">
+                    <h6 class="header-text" style="padding-bottom: 0; margin-bottom: 0"><?= $post_directory[$i]->get_title() ?></h6>
+                </div>
+                <div class="row standard-container cstm-border">
+                    <p>
+                        <?= $post_directory[$i]->get_content() ?>
+                    </p>
+                </div>
+            </div>
+            <div class="col standard-container cstm-border" style="margin:<?=$margin?>px">
+                <a class="header-text" href="post_detail.php?pid=<?= $post_directory[$i]->get_post_id() ?>">Visit</a>
+            </div>
         </div>
         <?php
-        endContainerHTML();
     }
 
 

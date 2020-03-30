@@ -72,7 +72,7 @@ pageHeaderHTML('Sign_Up', '../');
 addHeaderHTML("Zeitgeist/Sign_Up", 1);
 startContainerHTML();
 if(!(isset($_POST['status']))){
-    generateHTMLForm('signup.php', 'post', $formArr);
+    generateHTMLForm($formArr, 'signup.php');
 } else if($_POST['status'] == 'success'){
     echo('<div>Sign up successful! Click <a href="signin.php">here</a> to sign in!</div>');
 

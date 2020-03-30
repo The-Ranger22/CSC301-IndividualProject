@@ -46,7 +46,7 @@ if(isset($error_msg)){
     }
 }
 startContainerHTML();
-generateHTMLForm('signin.php', 'post', $formArr);
+generateHTMLForm($formArr, 'signin.php');
 endContainerHTML();
 startContainerHTML();
 echo('<div>Need an account? Sign up <a href="signup.php">here</a>!</div>');

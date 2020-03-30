@@ -1,4 +1,11 @@
 <?php
+define("HTML_TAG_DIV", "div");
+define("HTML_TAG_BUTTON", "button");
+define("HTML_TAG_HYPERLINK", "a");
+define("CSS_PROP_POS_STATIC", "static");
+define("CSS_PROP_POS_ABSOLUTE", "absolute");
+define("CSS_PROP_POS_FIXED", "fixed");
+define("CSS_PROP_POS_RELATIVE", "relative");
 function pageHeaderHTML($pageTitle, $path=''){
     echo('
 
@@ -48,7 +55,7 @@ function pageFooterHTML($path=''){
 
 ');
 }
-function addHeaderHTML($text, $size){
+function addHeaderHTML($text, $size = 2){
     if($size > 6 || $size < 1){
         echo('
         <h6 class="header-text">html.php->addHeader Error: size is out of bounds. Must be a value between 1 and 6</h6>
@@ -58,8 +65,17 @@ function addHeaderHTML($text, $size){
         echo('<h'.$size.' class="header-text">'.$text.'</h'.$size.'>');
     }
 }
-function startContainerHTML(){
-    echo('<div class="row cstm-border standard-container" id="main_content">');
+function startContainerHTML($isRow=true,$col_size=null){
+    if($isRow == true){
+        echo('<div class="row cstm-border standard-container" id="main_content">');
+    }
+    else {
+        $col = 'col';
+        if($col_size != null){
+            $col = $col."-"."$col_size";
+        }
+        echo('<div class="'.$col.' cstm-border standard-container" id="main_content">');
+    }
 }
 function endContainerHTML(){
     echo('
@@ -89,21 +105,31 @@ function addNavItemHTML($filepath, $name){
     ');
 }
 
-function generateHTMLForm($action, $method, $inputArr){
+function generateHTMLForm( $inputArr, $action = "", $method = "POST"){
+    echo('<div class="col">');
     echo('<form action="'.$action.'" method="'.$method.'">');
 
     for($i = 0; $i < count($inputArr); $i++){
+
         if(strtolower($inputArr[$i]['tag']) == 'input') {
             if(strtolower($inputArr[$i]['type']) == 'hidden'){
-                echo('<label><input type="' . $inputArr[$i]['type'] . '" name="' . $inputArr[$i]['name'] . '"  value="success"></label><br>');
+                echo('<label><input type="' . $inputArr[$i]['type'] . '" name="' . $inputArr[$i]['name'] . '"  value="success"></label>');
             }
             else {
-                echo($inputArr[$i]['name'] . ':');
+                echo('<div class="form-group" style="margin: 0;">');
+                echo('<h4 class="header-text" style="padding: 0; margin: 0">'.$inputArr[$i]['name'] . '</h4>');
                 if ($inputArr[$i]['required']) {
-                    echo('<label><input type="' . $inputArr[$i]['type'] . '" name="' . $inputArr[$i]['name'] . '" placeholder="' . $inputArr[$i]['placeholder'] . '" required></label><br>');
+                    ?>
+                    <label for="<?= $inputArr[$i]['name'] ?>"></label>
+                    <input id="<?= $inputArr[$i]['name'] ?>" class="form-control" type="<?=$inputArr[$i]['type']?>" name="<?=$inputArr[$i]['name']?>" placeholder="<?=$inputArr[$i]['placeholder']?>" required>
+                    <?php
                 } else {
-                    echo('<label><input type="' . $inputArr[$i]['type'] . '" name="' . $inputArr[$i]['name'] . '" placeholder="' . $inputArr[$i]['placeholder'] . '"></label><br>');
+                    ?>
+                    <label for="<?= $inputArr[$i]['name'] ?>"></label>
+                    <input id="<?= $inputArr[$i]['name'] ?>" class="form-control" type="<?=$inputArr[$i]['type']?>" name="<?=$inputArr[$i]['name']?>" placeholder="<?=$inputArr[$i]['placeholder']?>" required>
+                    <?php
                 }
+                echo('</div>');
             }
         } else if(strtolower($inputArr[$i]['tag']) == 'select'){
             echo('<label><select name="'.$inputArr[$i]['name'].'">');
@@ -113,10 +139,31 @@ function generateHTMLForm($action, $method, $inputArr){
                 }
             }
             echo('</select></label>');
+        } else {
+            echo('<h5>'.$inputArr[$i]['name'] . '</h5>');
+            echo('<label><'.$inputArr[$i]['tag'].'></'.$inputArr[$i]['tag'].'></label>');
         }
+
     }
     echo('<br>');
-    echo('<button type="submit" value="submit">Submit</button>');
+    echo('<button class="btn header-text float-right" style="text-decoration: underline"  type="submit" value="submit">Submit</button>');
     echo('</form>');
+    echo('</div>');
+}
+function positionElement($element, $content, $attributes, $positionType="static", $zIndex=null, $left=null, $top=null, $right=null, $bottom=null){
+
+    ?>
+    <<?= $element ?>
+    <?= $attributes ?> style="position: <?= $positionType ?>;
+    <?php if($left != null) ?> left: <?= $left ?>px;
+    <?php if($right != null) ?> right: <?= $right ?>px;
+    <?php if($top != null) ?> top: <?= $top ?>px;
+    <?php if($bottom != null) ?> bottom: <?= $bottom ?>px;
+    <?php if($zIndex != null) ?> z-index: <?= $zIndex ?>px;
+    ">
+        <?= $content ?>
+    </<?= $element ?>>
+    <?php
+
 }
 

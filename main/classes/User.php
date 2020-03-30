@@ -1,29 +1,34 @@
 <?php
 
 
-class User extends Item
+class User
 {
     private $username;
     private $email;
     private $user_id;
     private $password;
-    private $friends = [
+    private $friends = [ //user ids of friends
 
     ];
-    private $blocked = [
+    private $blocked = [ //user id's of blocked users
 
     ];
     private $details = [
 
     ];
 
-    function __construct($username, $email, $password)
+    function __construct()
     {
+    }
+    //Populate methods
+    public function populateUserFromInput($username, $email, $password){
         $this->username = $username;
         $this->email = $email;
         $this->password = $password;
-        $this->user_id = parent::generate_id();
+        $this->user_id = -1; //TODO: Obtains id from DBInterface
     }
+    public function populateUserFromFile(){}
+    //getter methods
     public function get_username(){
         return $this->username;
     }
@@ -36,10 +41,17 @@ class User extends Item
     public function get_user_id(){
         return $this->user_id;
     }
+    public static function getUserArray(){}
 
 
-    public function toString()
-    {
-
-    }
+    //Adding/removing friends
+    public function addFriend(){}
+    public function removeFriend(){}
+    //Blocking/Unblocking users
+    public function blockUser(){}
+    public function unblockUser(){}
+    //The following methods should only be usable by the author of the post
+    public function createPost(){}
+    public function deletePost(){}
+    public function editPost(){}
 }
