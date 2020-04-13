@@ -1,28 +1,26 @@
 <?php
 require_once('../../_libs/json.php');
 require_once('../../_libs/csv.php');
+require_once ("../classes/DBInterface.php");
+require_once("../classes/User.php");
+require_once("../settings.php");
+session_start();
 
-$user_file = '../../_assets/data/users/'.$_GET['id'].'/'.$_GET['id'].'.json';
-$user_data = readJSON($user_file);
+$database = DBInterface::connectToDB(DB_SETTINGS, DB_OPTIONS);
+$user_data = $database->query('SELECT * FROM user WHERE user_id='.$_GET['id']);
+$user_data = $user_data->fetch();
+$details = json_decode($user_data['details'], true);
 
-//TODO: Add additional CSV file to keep track of total number of users/Alt: Make the first entry in user_directory store the integer value of member count
-//echo '<pre>';
-//echo $user_file;
-//print_r($user_data);
 
 if(isset($_POST['save'])) {
-    commitChanges($_POST['title'], $_POST['quote'], $_POST['bio'], $user_data, $user_file);
+    commitChanges($_POST['title'], $_POST['quote'], $_POST['bio']);
 }
 
-function commitChanges($newTitle, $newQuote, $newBio, $user_data, $file)
+function commitChanges($newTitle, $newQuote, $newBio)
 {
-    $new_data = $user_data;
-    $new_data['preferences']['title'] = $newTitle;
-    $new_data['preferences']['quote'] = $newQuote;
-    $new_data['preferences']['bio'] = $newBio;
-
-    writeJSON($file, $new_data);
-
+    $user = new User();
+    $user->createUserFromSession($_SESSION['user_id']);
+    $user->updateDetails($newTitle, $newQuote, $newBio);
     header("Location: ../detail.php?id=".$_GET['id']);
 
 }
@@ -53,11 +51,11 @@ function commitChanges($newTitle, $newQuote, $newBio, $user_data, $file)
                     <form action="editUser.php?id=<?= $_GET['id'] ?>" method="post">
                         <label><input type="hidden" name="id" value="<?= $_GET['id'] ?>"></label>
                         <h5 class="header-text">Title</h5>
-                        <label class="cstm-border"><input type="text" name="title" value="<?= $user_data['preferences']['title'] ?>" placeholder="Ex. The Greatest!"></label><br>
+                        <label class="cstm-border"><input type="text" name="title" value="<?= $details['title'] ?>" placeholder="Ex. The Greatest!"></label><br>
                         <h5 class="header-text">Quote</h5>
-                        <label class="cstm-border"><input type="text" name="quote" value="<?= $user_data['preferences']['quote'] ?>" placeholder="Ex. 'I did all that I could'"></label><br>
+                        <label class="cstm-border"><input type="text" name="quote" value="<?= $details['quote'] ?>" placeholder="Ex. 'I did all that I could'"></label><br>
                         <h5 class="header-text">Bio</h5>
-                        <label class="cstm-border"><textarea type="text" name="bio"><?= $user_data['preferences']['bio'] ?></textarea></label><br>
+                        <label class="cstm-border"><textarea type="text" name="bio"><?= $details['bio'] ?></textarea></label><br>
                         <!--<label class="cstm-border"><input type="text" value="image"></label><br>-->
                         <span><button class="btn btn-primary" name="save">Save</button></span>
                         <span><a class="btn btn-secondary" href="../detail.php?id=<?= $_GET['id'] ?>">Cancel</a></span>

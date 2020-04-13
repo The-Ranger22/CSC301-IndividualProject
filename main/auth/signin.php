@@ -2,6 +2,8 @@
 require_once ('../../_libs/csv.php');
 require_once ('../../_libs/html.php');
 require_once('../../_libs/auth.php');
+require_once ('../classes/DBInterface.php');
+require_once('../settings.php');
 session_start();
 
 

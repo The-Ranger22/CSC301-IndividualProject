@@ -1,37 +1,60 @@
 <?php
-
+require_once('../settings.php');
+require_once('DBInterface.php');
 
 class User
 {
     private $username;
     private $email;
-    private $user_id;
+    public $user_id;
     private $password;
-    private $friends = [ //user ids of friends
-
-    ];
-    private $blocked = [ //user id's of blocked users
-
-    ];
-    private $details = [
+    private $dob;
+    public $details = [
 
     ];
 
     function __construct(){}
     //User methods
-    public function createUser($username, $email, $password)
+    public function createUser($username, $email, $password, $dob)
     {
         $this->username = $username;
         $this->email = $email;
         $this->password = $password;
-        $this->user_id = "user".DBInterface::getUserTotal("../../_assets/data/users/user_directory.csv"); //TODO: Obtains id from DBInterface
+        $this->dob = $dob;
         $this->details = [
-            'title' => null,
-            'quote' => null,
-            'bio' => null,
+            'title' => 'New User',
+            'quote' => 'Hello World!',
+            'bio' => 'My life story in overly personal detail',
             'img' => '../../_assets/img/profile-placeholder.png'
         ];
-        DBInterface::addUser($this->toString());
+        DBInterface::insert('user','username, email, password, DoB, details',[$this->username, $this->email, $this->password, $this->dob, json_encode($this->details)], DB_SETTINGS, DB_OPTIONS);
+    }
+    public function createUserFromSession($session_id){
+        $db = DBInterface::connectToDB(DB_SETTINGS, DB_OPTIONS);
+        $query = $db->prepare("SELECT * FROM user WHERE user_id=?");
+        $query->execute([$session_id]);
+        $user = $query->fetch();
+
+        $this->username = $user["username"];
+        $this->user_id = $user["user_id"];
+        $this->email = $user["email"];
+        $this->password = $user["password"];
+        $this->dob = $user["DoB"];
+        $this->details = json_decode($user["details"]);
+    }
+    public function updateDetails($title, $quote, $bio, $img = '../../_assets/img/profile-placeholder.png'){
+        $this->details = [
+            'title' => $title,
+            'quote' => $quote,
+            'bio' => $bio,
+            'img' => $img
+        ];
+
+        $updatedDetails = json_encode($this->details);
+
+        $db = DBInterface::connectToDB(DB_SETTINGS, DB_OPTIONS);
+        $query = $db->prepare("UPDATE user SET details=? WHERE user_id=?");
+        $query->execute([$updatedDetails, $this->user_id]);
     }
 
     public function loadUser($user_id, $file)
@@ -84,11 +107,15 @@ class User
     {
         return $this->user_id;
     }
+    public function get_details(){
+        return $this->details;
+    }
 
     public function toString()
     {
         return $this->username.";".$this->email.";".$this->user_id;
     }
+
 
     /* TODO: Adding/removing friends, Blocking/Unblocking users, Encapsulate post creation into user methods
      * public function addFriend(){}

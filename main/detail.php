@@ -1,9 +1,16 @@
 <?php
 require_once '../_libs/json.php';
 require_once '../_libs/auth.php';
+require_once 'settings.php';
+require_once 'classes/DBInterface.php';
 session_start();
 if(!(session_logged('user'))) header('Location: auth/signin.php');
-$user_data = readJSON('../_assets/data/users/'.$_GET['id'].'/'.$_GET['id'].'.json');
+$database = DBInterface::connectToDB(DB_SETTINGS, DB_OPTIONS);
+$user_data = $database->query('SELECT * FROM user WHERE user_id='.$_GET['id']);
+$user_data = $user_data->fetch();
+$user_details = json_decode($user_data['details'], true);
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,14 +49,14 @@ $user_data = readJSON('../_assets/data/users/'.$_GET['id'].'/'.$_GET['id'].'.jso
                 <div class="col">
 
                     <h2 class="header-text">Bio</h2><br>
-                    <p><?= $user_data['preferences']['bio']?></p>
+                    <p><?= $user_details['bio'] ?></p>
                 </div>
                 <div class="col text-center">
-                    <img class="user-img-large" src="<?= $user_data['preferences']['img']?>" alt="<?= $user_data['username'] ?>"><br>
+                    <img class="user-img-large" src="<?= $user_details['img']?>" alt="<?= $user_data['username'] ?>"><br>
                     <h3><?= $user_data['username']?></h3>
-                    <h5><?= $user_data['preferences']['title']?></h5>
-                    <h5>"<?= $user_data['preferences']['quote']?>"</h5>
-                    <h5>Member since: <?= $user_data['date_joined']['month']?>/<?= $user_data['date_joined']['day']?>/<?= $user_data['date_joined']['year']?></h5>
+                    <h5><?= $user_details['title']?></h5>
+                    <h5>"<?= $user_details['quote']?>"</h5>
+                    <h5>Member since: <?= $user_data['date_registered']?></h5>
                     <span><a class="btn btn-primary" href="user/editUser.php?id=<?= $_GET['id'] ?>">Edit</a></span>
                     <span><button class="btn btn-danger" onclick="confirmDelete('user/deleteUser.php?id=<?= $_GET['id'] ?>', 'Delete User?')" value="">Delete</button></span>
                 </div>

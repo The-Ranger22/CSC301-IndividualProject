@@ -1,26 +1,33 @@
 <?php
-//Class that will act as the SQL DB interface in the future. (THIS CLASS DOES NOT HANDLE AUTH, ONLY HANDLING DATA FROM THE DB)
-//currently, it is being implemented by use of two libraries (csv.php and json.php) but will not require any dependencies
-//once implemented for SQL
+//Class that acts as the SQL DB interface. (THIS CLASS DOES NOT HANDLE AUTH, ONLY HANDLING DATA FROM THE DB)
 
-define("POST_DIRECTORY", "../../_assets/data/posts/post_directory.csv");
-define("USER_DIRECTORY", "../../_assets/data/users/user_directory.csv");
 
 class DBInterface
 {
+    //MySQL
+    public static function connectToDB($settings, $options){
+        return new PDO('mysql:host='.$settings['host'].';dbname='.$settings['dbname'].';charset='.$settings['charset'],$settings['username'],$settings['password'], $options);
+    }
+    public static function insert($table, $fields, $values, $settings, $options){
+        $db = self::connectToDB($settings, $options);
+        $values_placeholder = '';
+        for($i = 0; $i < count($values); $i++){
+            if($i == count($values) - 1){
+                $values_placeholder .= '?';
+            }
+            else {
+                $values_placeholder .= '?,';
+            }
+        }
+        $query = $db->prepare("INSERT INTO ".$table."(".$fields.") VALUES (".$values_placeholder.")");
+        $query->execute($values);
+    }
 
-    //Handling User
-    public static function getUser($user_id, $file){
-        /*Returns a user object : User*/
-        return -1;
-    }
-    public static function getAllUsers(){/*Returns all users : User[]*/}
-    public static function getUserTotal($file){
-        $csv = readAtCSV($file, 0);
-        return $csv[1];
-    }
-    public static function addUser($userString){
-        /*Adds a user : boolean*/
+
+    public static function addUser($user_data, $settings, $options){
+        $db = self::connectToDB($settings, $options);
+        $query = $db->prepare("INSERT INTO user(username, email, password, DoB) VALUES (?, ?, ?, ?)");
+        $query->execute([$user_data['username'],$user_data['email'],$user_data['password'], $user_data['DoB']]);
     }
     public static function removeUser($user_id, $file){/*Removes a user : boolean*/}
     public static function updateUser($user_id, $user_details, $file){/*Updates a user : boolean*/}
@@ -55,8 +62,7 @@ class DBInterface
         writeCSV(POST_DIRECTORY,  $post_id.";".base64_encode($post));
     }
     //TODO:
-    public static function removePost($post_id, $author_id){/*Removes a post : boolean*/}
-    public static function updatePost($post_id, $author_id, $updated_post){/*Updates a post : boolean*/}
+
 
     //Utility functions
     public static function getPostTotal($file){

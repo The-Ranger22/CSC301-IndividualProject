@@ -11,7 +11,7 @@ pageHeaderHTML("Create Post", LOCAL_PATH);
 
 if(count($_POST) > 0){
     $post = new Post();
-    $post->add_post($_POST["title"], $_POST["content"], $_SESSION['user'], $_SESSION['user_id']);
+    $post->add_post($_POST["title"], $_POST["content"], $_SESSION['user_id']);
     startContainerHTML();
     echo("Post successfully created");
     endContainerHTML();

@@ -2,7 +2,8 @@
 require_once('../../_libs/csv.php');
 require_once('../../_libs/html.php');
 require_once('../../_libs/auth.php');
-require_once('../user/createUser.php');
+require_once('../classes/User.php');
+require_once ('../classes/DBInterface.php');
 /*TODO:
  * 1. create registration form
  * 2. when user submits
@@ -75,7 +76,6 @@ if(!(isset($_POST['status']))){
     generateHTMLForm($formArr, 'signup.php');
 } else if($_POST['status'] == 'success'){
     echo('<div>Sign up successful! Click <a href="signin.php">here</a> to sign in!</div>');
-
 }
 
 endContainerHTML();

@@ -1,11 +1,10 @@
 <?php
 require_once("DBInterface.php");
 
-class Post implements Serializable
+class Post
 {
-    public $author; // [Username/ID of user]
     public $post_id; // [# out of total post]
-    public $user_post_id; //[# out of total posts made by the author]
+    public $author_id;
     public $title;
     public $content;
     public $date;
@@ -17,26 +16,22 @@ class Post implements Serializable
     }
 
     //Getter Methods
-    public function get_author(){return $this->author;}
     public function get_post_id(){return $this->post_id;}
     public function get_user_post_id(){return $this->user_post_id;}
     public function get_content(){return $this->content;}
     public function get_post_date(){return $this->date;}
     public function get_title(){return $this->title;}
 
-    public function add_post($title, $content, $author, $user_id){
-        $this->author = $author;
+    public function add_post($title, $content, $author_id){
+        $this->author_id = $author_id;
         $this->title = $title;
         $this->content = $content;
-        $this->post_id = (int) DBInterface::getPostTotal("../../_assets/data/posts/post_directory.csv"); //TODO: Obtain id from DBInterface
-        $this->user_post_id = $user_id."-0";
-        $this->date = date('m/d/Y|h:i:s A');
 
-        DBInterface::addPost($this->serialize(), $this->post_id);
+        DBInterface::insert("post","author_id, title, content", [$this->author_id, $title, $content],DB_SETTINGS, DB_OPTIONS);
 
     }
-    public function load_post($post_id, $file){
-        $loaded_post = DBInterface::getPost($post_id, $file);
+    public function load_post($post_id){
+        $loaded_post = DBInterface::getPost($post_id);
         $this->author = $loaded_post->author;
         $this->title = $loaded_post->title;
         $this->content = $loaded_post->content;
@@ -56,27 +51,5 @@ class Post implements Serializable
         ];
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function serialize()
-    {
-        //$serializedPost = serialize($this->toArray());
-        //$serializedPost = str_replace("\r\n", "-r-n-", $serializedPost);
-        return serialize($this->toArray());
-    }
 
-    /**
-     * @inheritDoc
-     */
-    public function unserialize($serialized)
-    {
-        $data = unserialize($serialized);
-        $this->author = $data["author"];
-        $this->title = $data["title"];
-        $this->content = $data["content"];
-        $this->post_id = $data["post_id"]; //TODO: Obtain id from DBInterface
-        $this->user_post_id = $data["user_post_id"];
-        $this->date = $data["date"];
-    }
 }

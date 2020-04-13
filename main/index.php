@@ -5,6 +5,7 @@ require_once '../_libs/html.php';
 require_once '../_libs/auth.php';
 require_once 'classes/DBInterface.php';
 require_once 'classes/Post.php';
+require_once 'settings.php';
 
 session_start();
 
@@ -29,44 +30,44 @@ pageFooterHTML();
 //MAIN BODY END
 function display_user()
 {
-    $user_directory = readCSV('../_assets/data/users/user_directory.csv');
-    //TODO: Add user
-
-    for ($i = 2; $i < count($user_directory); $i++) { //Minus 2 to compensate for the first two entries being ded
-        $key = $user_directory[$i][2];
-        $user_data = readJSON('../_assets/data/users/' . $key . '/' . $key . '.json');
-
+    $database = DBInterface::connectToDB(DB_SETTINGS, DB_OPTIONS);
+    $user_directory = $database->query("SELECT * FROM user");
+    while ($user = $user_directory->fetch()) {
         echo '<span><div class="standard-container cstm-border item">';
-        echo '<div class=""><img class="user-img" src="' . $user_data['preferences']['img'] . '" alt="' . $user_data['username'] . '"></div><br>';
-        echo '<div class=""><h4>' . $user_data['username'] . '</h4></div>';
-        echo '<div class=""><h6>' . $user_data['preferences']['title'] . '</h6></div>';
-        echo '<div class=""><a href="detail.php?id=' . $key . '">Visit Profile</a></div>';
+//        echo '<div class=""><img class="user-img" src="' . $user['preferences']['img'] . '" alt="' . $user['username'] . '"></div><br>';
+        echo '<div class=""><h4>' . $user['username'] . '</h4></div>';
+        echo '<div class=""><h6>' . $user['details']. '</h6></div>';
+        echo '<div class=""><a href="detail.php?id=' . $user['user_id'] . '">Visit Profile</a></div>';
         echo '</div></span>';
     }
+    $database = null;
 }
 
 function display_post()
 {
     $margin = 8;
-    $post_directory = DBInterface::getAllPosts("../_assets/data/posts/post_directory.csv");
-    for ($i = count($post_directory) - 1; $i > -1; $i--) {
+    $db = DBInterface::connectToDB(DB_SETTINGS, DB_OPTIONS);
+    $post_directory = $db->query("SELECT * FROM post");
+    while($post = $post_directory->fetch()) {
+        $author = $db->prepare("SELECT username FROM user WHERE user_id=?");
+        $author->execute([$post['author_id']]);
         ?>
         <div class="row">
             <div class="col standard-container cstm-border" style="margin:<?=$margin?>px">
-                <h6 class="header-text"><?= $post_directory[$i]->get_author() ?></h6>
+                <h6 class="header-text"><?= $author->fetch()['username'] ?></h6>
             </div>
             <div class="col-9" style="margin:<?=$margin?>px">
                 <div class="row standard-container cstm-border" style="margin-bottom:<?=$margin?>px">
-                    <h6 class="header-text" style="padding-bottom: 0; margin-bottom: 0"><?= $post_directory[$i]->get_title() ?></h6>
+                    <h6 class="header-text" style="padding-bottom: 0; margin-bottom: 0"><?= $post["title"] ?></h6>
                 </div>
                 <div class="row standard-container cstm-border">
                     <p>
-                        <?= $post_directory[$i]->get_content() ?>
+                        <?= $post["content"] ?>
                     </p>
                 </div>
             </div>
             <div class="col standard-container cstm-border" style="margin:<?=$margin?>px">
-                <a class="header-text" href="post_detail.php?pid=<?= $post_directory[$i]->get_post_id() ?>">Visit</a>
+                <a class="header-text" href="post_detail.php?pid=<?= $post["post_id"] ?>">Visit</a>
             </div>
         </div>
         <?php
