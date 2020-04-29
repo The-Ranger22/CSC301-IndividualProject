@@ -10,14 +10,16 @@ class Post
     public $date;
 
     public function __construct(){}
-    public function __destruct()
-    {
-        // TODO: Implement __destruct() method.
-    }
+    public function __destruct(){}
 
     //Getter Methods
     public function get_post_id(){return $this->post_id;}
-    public function get_user_post_id(){return $this->user_post_id;}
+    public function get_author(){
+        $db = DBInterface::connectToDB(DB_SETTINGS, DB_OPTIONS);
+        $query = $db->query("SELECT username FROM user WHERE user_id=".$this->author_id);
+        $query = $query->fetch();
+        return $query["username"];
+    }
     public function get_content(){return $this->content;}
     public function get_post_date(){return $this->date;}
     public function get_title(){return $this->title;}
@@ -31,13 +33,15 @@ class Post
 
     }
     public function load_post($post_id){
-        $loaded_post = DBInterface::getPost($post_id);
-        $this->author = $loaded_post->author;
-        $this->title = $loaded_post->title;
-        $this->content = $loaded_post->content;
-        $this->post_id = $loaded_post->post_id; //TODO: Obtain id from DBInterface
-        $this->user_post_id = $loaded_post->user_post_id;
-        $this->date = $loaded_post->date;
+        $db = DBInterface::connectToDB(DB_SETTINGS, DB_OPTIONS);
+        $query = $db->prepare("SELECT * FROM post WHERE post_id=?");
+        $query->execute([$post_id]);
+        $loaded_post = $query->fetch();
+        $this->post_id = $post_id;
+        $this->author_id = $loaded_post["author_id"];
+        $this->title = $loaded_post["title"];
+        $this->content = $loaded_post["content"];
+        $this->date = $loaded_post["date_created"];
 
     }
     public function toArray(){

@@ -13,6 +13,39 @@ echo $a."\n";
 $a = crypt($a);
 
 echo $a."\n";
+class STATUS{
+    #--BANNED
+    const BANNED=-50;
+    #--REMOVED
+    const REMOVED=-40;
+    #--DELETED
+    const DELETED=-30;
+    #--SUSPENDED
+    const SUSPENDED=-20;
+    #--PAUSED
+    const PAUSED=-10;
+    #--CREATED
+    const CREATED=0;
+    #--CREATED
+    const INSERTED=10;
+    #--INSERTED
+    const INVITED=20;
+    #--INVITED
+    const REGISTERED=30;
+    #--REGISTERED
+    const REVIEW=40;
+    #--REVIEW
+    const ACTIVATED=50;
+    #--ACTIVATED
+    const VALIDATED=60;
+    #--VALIDATED
+    const PUBLISHED=70;
+    #--PUBLISHED
+    const TRUSTED=80;
+    #--TRUSTED
+    const PROMOTED=90;
+    #--PROMOTED
+}
 
 
 

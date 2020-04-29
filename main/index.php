@@ -15,7 +15,14 @@ if (!(session_logged('user'))) header('Location: auth/signin.php');
 
 pageHeaderHTML('Index');
 addHeaderHTML('Zeitgeist', 2);
-require_once('../_template/nav.php');
+startNavbarHTML();
+addNavItemHTML('index.php', 'Home');
+addNavItemHTML('','Projects');
+addNavItemHTML('','Rooms');
+addNavItemHTML('','Groups');
+addNavItemHTML('detail.php?id='.$_SESSION['user_id'], 'My Account');
+addNavItemHTML('../auth/signout.php', 'Sign Out');
+endNavbarHTML();
 
 addHeaderHTML('Latest Posts', 4);
 positionElement(HTML_TAG_HYPERLINK, "Create Post", "class=\"btn header-text\" href=\"post/createPost.php\"", CSS_PROP_POS_ABSOLUTE, 1, null, 158, 5);
@@ -36,7 +43,7 @@ function display_user()
         echo '<span><div class="standard-container cstm-border item">';
 //        echo '<div class=""><img class="user-img" src="' . $user['preferences']['img'] . '" alt="' . $user['username'] . '"></div><br>';
         echo '<div class=""><h4>' . $user['username'] . '</h4></div>';
-        echo '<div class=""><h6>' . $user['details']. '</h6></div>';
+        echo '<div class=""><h6>' . json_decode($user['details'], true)["title"]. '</h6></div>';
         echo '<div class=""><a href="detail.php?id=' . $user['user_id'] . '">Visit Profile</a></div>';
         echo '</div></span>';
     }

@@ -2,16 +2,19 @@
 require_once("../_libs/html.php");
 require_once("classes/Post.php");
 require_once ("classes/DBInterface.php");
-require_once ("../_libs/csv.php");
+require_once("settings.php");
+require_once ("../_libs/auth.php");
 session_start();
+
+if (!(session_logged('user'))) header('Location: auth/signin.php');
 
 
 $post = new Post();
-$post->load_post($_GET['pid'], "../_assets/data/posts/post_directory.csv");
+$post->load_post($_GET['pid']);
 
 pageHeaderHTML($post->get_title()." - Zeitgeist");
 startNavbarHTML();
-addNavItemHTML('../index.php', 'Home');
+addNavItemHTML('index.php', 'Home');
 addNavItemHTML('','Projects');
 addNavItemHTML('','Rooms');
 addNavItemHTML('','Groups');
