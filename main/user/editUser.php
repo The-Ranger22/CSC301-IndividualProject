@@ -1,10 +1,17 @@
 <?php
 require_once('../../_libs/json.php');
 require_once('../../_libs/csv.php');
+require_once('../../_libs/auth.php');
 require_once ("../classes/DBInterface.php");
 require_once("../classes/User.php");
 require_once("../settings.php");
 session_start();
+
+if(!(is_user($_SESSION['user_id'], $_GET['id']))){
+    header('Location: ../detail.php?id='.$_GET['id']);
+    die();
+}
+
 
 $database = DBInterface::connectToDB(DB_SETTINGS, DB_OPTIONS);
 $user_data = $database->query('SELECT * FROM user WHERE user_id='.$_GET['id']);
@@ -19,10 +26,9 @@ if(isset($_POST['save'])) {
 function commitChanges($newTitle, $newQuote, $newBio)
 {
     $user = new User();
-    $user->createUserFromSession($_SESSION['user_id']);
+    $user->createUserFromID($_SESSION['user_id']);
     $user->updateDetails($newTitle, $newQuote, $newBio);
     header("Location: ../detail.php?id=".$_GET['id']);
-
 }
 
 ?>

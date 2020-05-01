@@ -38,28 +38,42 @@ $user_details = json_decode($user_data['details'], true);
                 <nav class="">
                     <ul>
                         <li class="nav-item-style"><a href="index.php">Home</a></li>
-                        <li class="nav-item-style">Feed</li>
-                        <li class="nav-item-style">Rooms</li>
-                        <li class="nav-item-style">Placeholder</li>
                     </ul>
                 </nav>
             </div>
             <div class="row spacer2"></div>
             <div class="row standard-container cstm-border f-scp">
-                <div class="col">
-
-                    <h2 class="header-text">Bio</h2><br>
-                    <p><?= $user_details['bio'] ?></p>
-                </div>
-                <div class="col text-center">
-                    <img class="user-img-large" src="<?= $user_details['img']?>" alt="<?= $user_data['username'] ?>"><br>
-                    <h3><?= $user_data['username']?></h3>
-                    <h5><?= $user_details['title']?></h5>
-                    <h5>"<?= $user_details['quote']?>"</h5>
-                    <h5>Member since: <?= $user_data['date_registered']?></h5>
-                    <span><a class="btn btn-primary" href="user/editUser.php?id=<?= $_GET['id'] ?>">Edit</a></span>
-                    <span><button class="btn btn-danger" onclick="confirmDelete('user/deleteUser.php?id=<?= $_GET['id'] ?>', 'Delete User?')" value="">Delete</button></span>
-                </div>
+                <?php
+                if($user_data['role'] != 0) {
+                    ?>
+                    <div class="col">
+                        <h2 class="header-text">Bio</h2><br>
+                        <p><?= $user_details['bio'] ?></p>
+                    </div>
+                    <div class="col text-center">
+                        <img class="user-img-large" src="<?= $user_details['img'] ?>"
+                             alt="<?= $user_data['username'] ?>"><br>
+                        <h3><?= $user_data['username'] ?></h3>
+                        <h5><?= $user_details['title'] ?></h5>
+                        <h5>"<?= $user_details['quote'] ?>"</h5>
+                        <h5>Member since: <?= $user_data['date_registered'] ?></h5>
+                        <?php
+                        if ($_SESSION['user_id'] == $_GET['id']) {
+                            ?>
+                            <span><a class="btn btn-primary"
+                                     href="user/editUser.php?id=<?= $_GET['id'] ?>">Edit</a></span>
+                            <span><button class="btn btn-danger"
+                                          onclick="confirmDelete('user/deleteUser.php?id=<?= $_GET['id'] ?>', 'Delete User?')"
+                                          value="">Delete</button></span>
+                            <?php
+                        }
+                        ?>
+                    </div>
+                    <?php
+                } else {
+                    echo("This account has been deactivated");
+                }
+                ?>
             </div>
         </div>
         <div class="col"></div>

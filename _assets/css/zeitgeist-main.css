@@ -12,14 +12,6 @@
 .light-mode .login_field{
     color: white;
 }
-
-
-
-
-
-
-
-
 #title_splash{
     /*font-size: 24px;
     margin-left: -10rem;
@@ -36,6 +28,7 @@
     margin: 0;
     padding: 0;
 }
+
 .c-red{
     color: red;
 }
@@ -125,12 +118,7 @@
     /*border-top-right-radius: 10px;
     border-top-left-radius: 10px;*/
 }
-.cstm-border-2{
-    border: 3px solid transparent;
-    border-image-source: url('/img/cstm-border-2.png');
-    border-image-repeat: repeat;
-    border-image-slice: 30%;
-}
+
 
 .f-cm{
     font-family: 'Cutive Mono', monospace;
@@ -211,4 +199,13 @@
     background-repeat: repeat;
     min-height: 100vh;
     animation: animatedBackground 4s linear infinite;
+}
+
+.tabcontent{
+    display: none;
+}
+
+table, th, td {
+    border: 1px solid white;
+    padding: 5px;
 }

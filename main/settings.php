@@ -7,7 +7,7 @@ define("DB_SETTINGS", [
     'dbname'=>'zg_main',
     'charset'=>'utf8mb4',
     'username'=>'admin',
-    'password'=>'temp'
+    'password'=>'12345678'
 ]);
 define("DB_OPTIONS",[
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,

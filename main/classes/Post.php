@@ -16,10 +16,12 @@ class Post
     public function get_post_id(){return $this->post_id;}
     public function get_author(){
         $db = DBInterface::connectToDB(DB_SETTINGS, DB_OPTIONS);
-        $query = $db->query("SELECT username FROM user WHERE user_id=".$this->author_id);
+        $query = $db->query("SELECT * FROM user WHERE user_id=".$this->author_id);
         $query = $query->fetch();
+        if($query['role'] == 0) return "[Deleted]";
         return $query["username"];
     }
+
     public function get_content(){return $this->content;}
     public function get_post_date(){return $this->date;}
     public function get_title(){return $this->title;}
@@ -30,6 +32,7 @@ class Post
         $this->content = $content;
 
         DBInterface::insert("post","author_id, title, content", [$this->author_id, $title, $content],DB_SETTINGS, DB_OPTIONS);
+
 
     }
     public function load_post($post_id){

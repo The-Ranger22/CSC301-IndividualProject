@@ -23,8 +23,10 @@ addNavItemHTML('../auth/signout.php', 'Sign Out');
 endNavbarHTML();
 startContainerHTML();
 ?>
-    Title: <?= $post->get_title() ?> <br>
-    Author: <?= $post->get_author() ?> <br>
-    Content: <?= $post->get_content() ?> <br>
+<div class="col">
+    <div class="row">Title: <?= $post->get_title() ?></div><br>
+    <div class="row">Author: <a href="detail.php?id=<?= $post->author_id ?>"><?= $post->get_author() ?></a></div><br>
+    <div class="row">Content: <?= $post->get_content() ?></div> <br>
+</div>
 <?php
 pageFooterHTML();

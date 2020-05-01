@@ -22,6 +22,8 @@ function sign_in(){
 
         $user_data = $query->fetch();
 
+        if($user_data['role'] == 0) return 'Account has been deactivated';
+
         echo(password_hash($_POST['password'], PASSWORD_DEFAULT));
         echo('<br>');
         echo($user_data['password']);
@@ -33,6 +35,7 @@ function sign_in(){
 
         $_SESSION['user'] = $_POST['username'];
         $_SESSION['user_id'] = $user_data['user_id'];
+        $_SESSION['role'] = $user_data['role'];
         return ('');
 
 
@@ -57,12 +60,18 @@ function sign_up(){
         $_POST['DoB'] = $_POST['year'].'-'.$_POST['month'].'-'.$_POST['day'];
 
         $user = new User();
-        $user->createUser($_POST['username'],$_POST['email'],$_POST['password'],$_POST['DoB']);
-
+        if(isset($_POST['admin'])) {
+            if ($_POST['admin'] == 'yes') {
+                $user->createUser($_POST['username'], $_POST['email'], $_POST['password'], $_POST['DoB'], 2);
+            }
+        }
+        else {
+            $user->createUser($_POST['username'], $_POST['email'], $_POST['password'], $_POST['DoB']);
+        }
         $_POST = [];
-        return 0;
+        return '';
     }
-    return '';
+    return -1;
 }
 function sign_out(){
     //check if user is logged in
@@ -78,4 +87,8 @@ function sign_out(){
 }
 function session_logged($id_field){
     return isset($_SESSION[$id_field]{0});
+}
+function is_user($activeID, $otherID){
+    if($activeID == $otherID) return true;
+    else return false;
 }

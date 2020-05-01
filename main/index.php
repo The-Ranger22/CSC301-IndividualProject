@@ -3,6 +3,7 @@ require_once '../_libs/csv.php';
 require_once '../_libs/json.php';
 require_once '../_libs/html.php';
 require_once '../_libs/auth.php';
+require_once '../admin/Admin.php';
 require_once 'classes/DBInterface.php';
 require_once 'classes/Post.php';
 require_once 'settings.php';
@@ -17,11 +18,11 @@ pageHeaderHTML('Index');
 addHeaderHTML('Zeitgeist', 2);
 startNavbarHTML();
 addNavItemHTML('index.php', 'Home');
-addNavItemHTML('','Projects');
-addNavItemHTML('','Rooms');
-addNavItemHTML('','Groups');
+//addNavItemHTML('','Projects');
+//addNavItemHTML('','Rooms');
+//addNavItemHTML('','Groups');
 addNavItemHTML('detail.php?id='.$_SESSION['user_id'], 'My Account');
-addNavItemHTML('../auth/signout.php', 'Sign Out');
+addNavItemHTML('auth/signout.php', 'Sign Out');
 endNavbarHTML();
 
 addHeaderHTML('Latest Posts', 4);
@@ -33,6 +34,8 @@ startContainerHTML();
 display_user();
 endContainerHTML();
 
+Admin::displayAdminOverlay('../admin/index.php', 'index.php');
+
 pageFooterHTML();
 //MAIN BODY END
 function display_user()
@@ -40,12 +43,14 @@ function display_user()
     $database = DBInterface::connectToDB(DB_SETTINGS, DB_OPTIONS);
     $user_directory = $database->query("SELECT * FROM user");
     while ($user = $user_directory->fetch()) {
-        echo '<span><div class="standard-container cstm-border item">';
+        if($user['role'] != 0) {
+            echo '<span><div class="standard-container cstm-border item">';
 //        echo '<div class=""><img class="user-img" src="' . $user['preferences']['img'] . '" alt="' . $user['username'] . '"></div><br>';
-        echo '<div class=""><h4>' . $user['username'] . '</h4></div>';
-        echo '<div class=""><h6>' . json_decode($user['details'], true)["title"]. '</h6></div>';
-        echo '<div class=""><a href="detail.php?id=' . $user['user_id'] . '">Visit Profile</a></div>';
-        echo '</div></span>';
+            echo '<div class=""><h4>' . $user['username'] . '</h4></div>';
+            echo '<div class=""><h6>' . json_decode($user['details'], true)["title"] . '</h6></div>';
+            echo '<div class=""><a href="detail.php?id=' . $user['user_id'] . '">Visit Profile</a></div>';
+            echo '</div></span>';
+        }
     }
     $database = null;
 }
@@ -58,12 +63,14 @@ function display_post()
     while($post = $post_directory->fetch()) {
         $author = $db->prepare("SELECT username FROM user WHERE user_id=?");
         $author->execute([$post['author_id']]);
+        $role = $db->prepare("SELECT role FROM user WHERE user_id=?");
+        $role->execute([$post['author_id']]);
         ?>
         <div class="row">
-            <div class="col standard-container cstm-border" style="margin:<?=$margin?>px">
-                <h6 class="header-text"><?= $author->fetch()['username'] ?></h6>
+            <div class="col-2 standard-container cstm-border" style="margin:<?=$margin?>px; padding: 4px">
+                <h6 class="header-text"><?= ($role->fetch()['role'] == 0) ? "[Deleted]" : $author->fetch()['username'] ?></h6>
             </div>
-            <div class="col-9" style="margin:<?=$margin?>px">
+            <div class="col" style="margin:<?=$margin?>px">
                 <div class="row standard-container cstm-border" style="margin-bottom:<?=$margin?>px">
                     <h6 class="header-text" style="padding-bottom: 0; margin-bottom: 0"><?= $post["title"] ?></h6>
                 </div>
@@ -73,7 +80,7 @@ function display_post()
                     </p>
                 </div>
             </div>
-            <div class="col standard-container cstm-border" style="margin:<?=$margin?>px">
+            <div class="col-2 standard-container cstm-border" style="margin:<?=$margin?>px">
                 <a class="header-text" href="post_detail.php?pid=<?= $post["post_id"] ?>">Visit</a>
             </div>
         </div>

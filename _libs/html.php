@@ -114,6 +114,9 @@ function generateHTMLForm( $inputArr, $action = "", $method = "POST"){
         if(strtolower($inputArr[$i]['tag']) == 'input') {
             if(strtolower($inputArr[$i]['type']) == 'hidden'){
                 echo('<label><input type="' . $inputArr[$i]['type'] . '" name="' . $inputArr[$i]['name'] . '"  value="success"></label>');
+            } else if(strtolower($inputArr[$i]['type']) == 'checkbox'){
+                echo("<br>");
+                echo('Admin Privileges: <label><input type="checkbox" name="' . $inputArr[$i]['name'] . '"  value="' . $inputArr[$i]['value'] .'"></label>');
             }
             else {
                 echo('<div class="form-group" style="margin: 0;">');
@@ -131,11 +134,11 @@ function generateHTMLForm( $inputArr, $action = "", $method = "POST"){
                 }
                 echo('</div>');
             }
-        } else if(strtolower($inputArr[$i]['tag']) == 'select'){
-            echo('<label><select name="'.$inputArr[$i]['name'].'">');
-            if($inputArr[$i]['isINT'] == true){
-                for ($j = $inputArr[$i]['options'][0]; $j <= $inputArr[$i]['options'][1]; $j++){
-                    echo('<option value="'.$j.'">'.$j.'</option>');
+        } else if(strtolower($inputArr[$i]['tag']) == 'select') {
+            echo('<label><select name="' . $inputArr[$i]['name'] . '">');
+            if ($inputArr[$i]['isINT'] == true) {
+                for ($j = $inputArr[$i]['options'][0]; $j <= $inputArr[$i]['options'][1]; $j++) {
+                    echo('<option value="' . $j . '">' . $j . '</option>');
                 }
             }
             echo('</select></label>');

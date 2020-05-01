@@ -4,6 +4,7 @@ require_once('../../_libs/html.php');
 require_once('../../_libs/auth.php');
 require_once('../classes/User.php');
 require_once ('../classes/DBInterface.php');
+require_once('../settings.php');
 /*TODO:
  * 1. create registration form
  * 2. when user submits

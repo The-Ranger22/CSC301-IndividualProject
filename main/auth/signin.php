@@ -6,13 +6,13 @@ require_once ('../classes/DBInterface.php');
 require_once('../settings.php');
 session_start();
 
-
+if(session_logged('user')) header('Location: ../index.php');
 
 if(isset($_POST['status'])){
     $_POST = [];
 }
 if(isset($_POST['token'])){
-    $error_msg = sign_in('../../_assets/data/users/user_directory.csv');
+    $error_msg = sign_in();
     if(isset($_SESSION['user'])){
         header('Location: ../index.php');
     }
