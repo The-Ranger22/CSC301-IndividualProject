@@ -5,5 +5,5 @@ require_once '../_libs/auth.php';
 require_once '../_libs/html.php';
 require_once '../main/settings.php';
 session_start();
-Admin::verifyAdmin();
+Admin::verifyAdmin(true);
 Admin::restoreUser($_GET['id']);

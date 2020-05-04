@@ -10,6 +10,9 @@ $user_data = $database->query('SELECT * FROM user WHERE user_id='.$_GET['id']);
 $user_data = $user_data->fetch();
 $user_details = json_decode($user_data['details'], true);
 
+$post_data = $database->query('SELECT * FROM post WHERE author_id='.$_GET['id']);
+
+
 
 ?>
 <!DOCTYPE html>
@@ -38,19 +41,21 @@ $user_details = json_decode($user_data['details'], true);
                 <nav class="">
                     <ul>
                         <li class="nav-item-style"><a href="index.php">Home</a></li>
+                        <li class="nav-item-style"><a href="detail.php">My Account</a></li>
+                        <li class="nav-item-style"><a href="auth/signout.php">Sign Out</a></li>
                     </ul>
                 </nav>
             </div>
             <div class="row spacer2"></div>
-            <div class="row standard-container cstm-border f-scp">
+            <div class="row f-scp">
                 <?php
                 if($user_data['role'] != 0) {
                     ?>
-                    <div class="col">
+                    <div class="col standard-container cstm-border" style="margin-right: 15px">
                         <h2 class="header-text">Bio</h2><br>
                         <p><?= $user_details['bio'] ?></p>
                     </div>
-                    <div class="col text-center">
+                    <div class="col-4 text-center standard-container cstm-border">
                         <img class="user-img-large" src="<?= $user_details['img'] ?>"
                              alt="<?= $user_data['username'] ?>"><br>
                         <h3><?= $user_data['username'] ?></h3>
@@ -75,6 +80,23 @@ $user_details = json_decode($user_data['details'], true);
                 }
                 ?>
             </div>
+            <br>
+            <h4 class="header-text">Posts</h4>
+            <?php
+            if($post_data->rowCount() > 0){
+                while($post = $post_data->fetch()){
+                    ?>
+                    <div class="col standard-container cstm-border">
+                        <div class="row">Title: <?= $post['title'] ?></div><br>
+                        <div class="row">Content: <?= $post['content'] ?></div><br>
+                        <a href="post_detail.php?pid=<?= $post["post_id"] ?>">View Post</a>
+                    </div>
+                    <br>
+                    <?php
+                }
+            }
+            ?>
+
         </div>
         <div class="col"></div>
     </div>

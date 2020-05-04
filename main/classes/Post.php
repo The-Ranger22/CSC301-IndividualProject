@@ -1,5 +1,4 @@
 <?php
-require_once("DBInterface.php");
 
 class Post
 {
@@ -26,6 +25,13 @@ class Post
     public function get_post_date(){return $this->date;}
     public function get_title(){return $this->title;}
 
+    public function set_title($title){
+        $this->title = $title;
+    }
+    public function set_content($content){
+        $this->content = $content;
+    }
+
     public function add_post($title, $content, $author_id){
         $this->author_id = $author_id;
         $this->title = $title;
@@ -35,6 +41,7 @@ class Post
 
 
     }
+
     public function load_post($post_id){
         $db = DBInterface::connectToDB(DB_SETTINGS, DB_OPTIONS);
         $query = $db->prepare("SELECT * FROM post WHERE post_id=?");
@@ -58,5 +65,15 @@ class Post
         ];
     }
 
+    public function edit_post(){
+        $db = DBInterface::connectToDB(DB_SETTINGS, DB_OPTIONS);
+        $update = $db->prepare("UPDATE post SET title=?, content=? WHERE post_id=?");
+        $update->execute([$this->title, $this->content, $this->post_id]);
+    }
+    public function delete_post(){
+        $db = DBInterface::connectToDB(DB_SETTINGS, DB_OPTIONS);
+        $delete_query = $db->prepare("DELETE FROM post WHERE post_id=?");
+        $delete_query->execute([$this->post_id]);
+    }
 
 }

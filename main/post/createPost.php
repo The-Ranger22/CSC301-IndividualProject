@@ -1,8 +1,5 @@
 <?php
 require_once("../settings.php");
-require_once("../../_libs/html.php");
-require_once("../../_libs/csv.php");
-require_once("meta.php");
 require_once ("../classes/Post.php");
 session_start();
 //TODO: Fix Nav template
@@ -18,9 +15,6 @@ if(count($_POST) > 0){
 }
 startNavbarHTML();
 addNavItemHTML('../index.php', 'Home');
-addNavItemHTML('','Projects');
-addNavItemHTML('','Rooms');
-addNavItemHTML('','Groups');
 addNavItemHTML('detail.php?id='.$_SESSION['user_id'], 'My Account');
 addNavItemHTML('../auth/signout.php', 'Sign Out');
 endNavbarHTML();
