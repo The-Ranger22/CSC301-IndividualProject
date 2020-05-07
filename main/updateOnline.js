@@ -17,9 +17,6 @@ function updateUsers(){
                 user.className = "c-red";
             }
         }
-
-
-
     };
     request.open("GET", "handler.php", true);
     request.send();

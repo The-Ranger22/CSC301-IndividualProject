@@ -56,6 +56,9 @@
 .c-black{
     color: black;
 }
+.c-bg-lightblue{
+    background-color: #1f3e91;
+}
 #dark_mode{
     position: fixed;
     bottom: 1rem;
@@ -138,8 +141,11 @@
 .f-ps2p{
     font-family: 'Press Start 2P', sans-serif;
 }
-
-
+.messenger{
+    overflow: scroll;
+    max-height: 500px;
+    min-height: 300px;
+}
 .standard-container{
     background-color: #000035;
     color: white;
