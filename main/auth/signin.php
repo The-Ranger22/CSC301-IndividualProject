@@ -3,6 +3,7 @@ require_once ('../../_libs/csv.php');
 require_once ('../../_libs/html.php');
 require_once('../../_libs/auth.php');
 require_once ('../classes/DBInterface.php');
+require_once('../classes/User.php');
 require_once('../settings.php');
 session_start();
 
@@ -14,6 +15,9 @@ if(isset($_POST['status'])){
 if(isset($_POST['token'])){
     $error_msg = sign_in();
     if(isset($_SESSION['user'])){
+        $user = new User();
+        $user->createUserFromID($_SESSION['user_id']);
+        $user->setOnline();
         header('Location: ../index.php');
     }
 }

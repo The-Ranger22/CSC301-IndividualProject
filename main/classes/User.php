@@ -9,6 +9,7 @@ class User
     private $dob;
     public $details = [];
     private $role;
+    private $isOnline;
 
     function __construct(){}
     //User methods
@@ -27,19 +28,6 @@ class User
         $this->role = $role;
         DBInterface::insert('user','username, email, password, DoB, details, role',[$this->username, $this->email, $this->password, $this->dob, json_encode($this->details), $this->role], DB_SETTINGS, DB_OPTIONS);
     }
-    public function createUserFromSession($session_id){
-        $db = DBInterface::connectToDB(DB_SETTINGS, DB_OPTIONS);
-        $query = $db->prepare("SELECT * FROM user WHERE user_id=?");
-        $query->execute([$session_id]);
-        $user = $query->fetch();
-
-        $this->username = $user["username"];
-        $this->user_id = $user["user_id"];
-        $this->email = $user["email"];
-        $this->password = $user["password"];
-        $this->dob = $user["DoB"];
-        $this->details = json_decode($user["details"]);
-    }
     public function createUserFromID($userID){
         $db = DBInterface::connectToDB(DB_SETTINGS, DB_OPTIONS);
         $query = $db->prepare("SELECT * FROM user WHERE user_id=?");
@@ -52,7 +40,13 @@ class User
         $this->password = $user["password"];
         $this->dob = $user["DoB"];
         $this->role = $user["role"];
-        $this->details = json_decode($user["details"]);
+        $this->details = json_decode($user["details"], true);
+        if($user["online"] == 1){
+            $this->isOnline = true;
+        }
+        else{
+            $this->isOnline = false;
+        }
     }
     public function updateUser($username, $password, $email, $title, $quote, $bio, $role, $img = '../../_assets/img/profile-placeholder.png'){
         echo("BEEP-START");
@@ -113,18 +107,20 @@ class User
         $query->execute([$updatedDetails, $this->user_id]);
     }
 
-    public function loadUser($user_id, $file)
-    {
-        $loaded_user = DBInterface::getUser($user_id, $file);
+    public function setOnline(){
+        $this->isOnline = true;
+        $db = DBInterface::connectToDB(DB_SETTINGS, DB_OPTIONS);
+        $query = $db->prepare("UPDATE user SET online=? WHERE user_id=?");
+        $query->execute([1, $this->user_id]);
     }
-
-
-    public function deleteUser($file)
-    {
-        DBInterface::removeUser($this->user_id, $file);
-        $this->clearUser();
-        $_SESSION = null;
-
+    public function setOffline(){
+        $this->isOnline = false;
+        $db = DBInterface::connectToDB(DB_SETTINGS, DB_OPTIONS);
+        $query = $db->prepare("UPDATE user SET online=? WHERE user_id=?");
+        $query->execute([0, $this->user_id]);
+    }
+    public function checkActive(){
+        return $this->isOnline;
     }
 
     private function clearUser(){
@@ -157,6 +153,9 @@ class User
     }
     public function get_details(){
         return $this->details;
+    }
+    public function getRole(){
+        return $this->role;
     }
 
     public function toString()

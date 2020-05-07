@@ -1,10 +1,9 @@
 <?php
-require_once '../_libs/csv.php';
-require_once '../_libs/json.php';
 require_once '../_libs/html.php';
 require_once '../_libs/auth.php';
 require_once '../admin/Admin.php';
 require_once 'classes/DBInterface.php';
+require_once 'classes/User.php';
 require_once 'classes/Post.php';
 require_once 'settings.php';
 
@@ -21,6 +20,7 @@ addNavItemHTML('index.php', 'Home');
 //addNavItemHTML('','Projects');
 //addNavItemHTML('','Rooms');
 //addNavItemHTML('','Groups');
+addNavItemHTML('message/mailbox.php?id='.$_SESSION['user_id'], 'Mailbox');
 addNavItemHTML('detail.php?id='.$_SESSION['user_id'], 'My Account');
 addNavItemHTML('auth/signout.php', 'Sign Out');
 endNavbarHTML();
@@ -36,20 +36,25 @@ endContainerHTML();
 
 Admin::displayAdminOverlay('../admin/index.php', 'index.php');
 
+echo("<script src='updateOnline.js'></script>");
 pageFooterHTML();
 //MAIN BODY END
 function display_user()
 {
     $database = DBInterface::connectToDB(DB_SETTINGS, DB_OPTIONS);
-    $user_directory = $database->query("SELECT * FROM user");
-    while ($user = $user_directory->fetch()) {
-        if($user['role'] != 0) {
+    $user_directory = $database->query("SELECT user_id FROM user");
+
+    while ($user_id = $user_directory->fetch()) {
+        $user = new User();
+        $user->createUserFromID($user_id["user_id"]);
+        if($user->getRole() != 0) {
             echo '<span><div class="standard-container cstm-border item">';
-//        echo '<div class=""><img class="user-img" src="' . $user['preferences']['img'] . '" alt="' . $user['username'] . '"></div><br>';
-            echo '<div class=""><h4>' . $user['username'] . '</h4></div>';
-            echo '<div class=""><h6>' . json_decode($user['details'], true)["title"] . '</h6></div>';
-            echo '<div class=""><a href="detail.php?id=' . $user['user_id'] . '">Visit Profile</a></div>';
+            echo '<div class=""><h4>' . $user->get_username() . '</h4></div>';
+            echo '<div class=""><h6>' . $user->get_details()["title"] . '</h6></div>';
+            echo '<div id="status'.$user->user_id.'" class=""></div>';
+            echo '<div class=""><a href="detail.php?id=' . $user->get_user_id() . '">Visit Profile</a></div>';
             echo '</div></span>';
+
         }
     }
     $database = null;

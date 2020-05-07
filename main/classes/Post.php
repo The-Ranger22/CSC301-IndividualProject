@@ -60,7 +60,6 @@ class Post
             "title" => $this->title,
             "content" => $this->content,
             "post_id" => $this->post_id,
-            "user_post_id" => $this->user_post_id,
             "date" => $this->date
         ];
     }

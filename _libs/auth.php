@@ -33,6 +33,8 @@ function sign_in(){
             return ('Incorrect password');
         }
 
+
+
         $_SESSION['user'] = $_POST['username'];
         $_SESSION['user_id'] = $user_data['user_id'];
         $_SESSION['role'] = $user_data['role'];
@@ -77,7 +79,7 @@ function sign_out(){
     //check if user is logged in
     if(!(session_logged('user_id'))) header('Location: signin.php');
     //start session
-    session_start();
+    //session_start();
     //set session to null
     $_SESSION = [];
     //destroy session
