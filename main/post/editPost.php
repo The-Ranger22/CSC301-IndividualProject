@@ -1,6 +1,5 @@
 <?php
 require_once("../settings.php");
-require_once("meta.php");
 require_once("../../_libs/html.php");
 require_once("../../_libs/auth.php");
 require_once ("../classes/Post.php");
@@ -25,7 +24,7 @@ if(isset($_POST['edit_status'])){
 }
 
 
-pageHeaderHTML("Edit Post", LOCAL_PATH);
+pageHeaderHTML("Edit Post", "../");
 startNavbarHTML();
 addNavItemHTML('../index.php', 'Home');
 addNavItemHTML('detail.php?id='.$_SESSION['user_id'], 'My Account');
@@ -52,4 +51,4 @@ startContainerHTML();
 <?php
 
 endContainerHTML();
-pageFooterHTML(LOCAL_PATH);
+pageFooterHTML("../");

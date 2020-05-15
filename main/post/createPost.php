@@ -1,10 +1,12 @@
 <?php
 require_once("../settings.php");
 require_once ("../classes/Post.php");
+require_once ("../classes/DBInterface.php");
+require_once("../../_libs/html.php");
 session_start();
 //TODO: Fix Nav template
 
-pageHeaderHTML("Create Post", LOCAL_PATH);
+pageHeaderHTML("Create Post", "../");
 
 if(count($_POST) > 0){
     $post = new Post();
@@ -38,4 +40,4 @@ startContainerHTML();
 <?php
 
 endContainerHTML();
-pageFooterHTML(LOCAL_PATH);
+pageFooterHTML("../");

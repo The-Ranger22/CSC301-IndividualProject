@@ -30,7 +30,6 @@ $post_data = $database->query('SELECT * FROM post WHERE author_id='.$_GET['id'])
     <title><?= $user_data['username'].'_Zeitgeist' ?></title>
 </head>
 <body id="animate-area">
-<? //TODO: Redo page layout ?>
 <div class="container">
     <div class="row">
         <div class="col"></div>
@@ -41,7 +40,7 @@ $post_data = $database->query('SELECT * FROM post WHERE author_id='.$_GET['id'])
                 <nav class="">
                     <ul>
                         <li class="nav-item-style"><a href="index.php">Home</a></li>
-                        <li class="nav-item-style"><a href="detail.php">My Account</a></li>
+                        <li class="nav-item-style"><a href="detail.php?id=<?= $_SESSION['user_id'] ?>">My Account</a></li>
                         <li class="nav-item-style"><a href="auth/signout.php">Sign Out</a></li>
                     </ul>
                 </nav>
@@ -108,7 +107,7 @@ $post_data = $database->query('SELECT * FROM post WHERE author_id='.$_GET['id'])
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
 <script src="../_assets/js/bootstrap.js"></script>
-<script src="../_assets/js/zg-skeleton.js"></script>
+<script src="../_assets/js/zg-main.js"></script>
 <script>
 
     //confirmDelete('user/deleteUser.php?id=<?= $_GET['id'] ?>',"Delete User?");
