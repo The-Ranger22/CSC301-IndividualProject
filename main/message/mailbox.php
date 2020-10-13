@@ -65,9 +65,8 @@ endContainerHTML();
         ?>
     </div>
     <script src="message.js"></script>
-    <script>
-
-    </script>
+<!--    <script src="controller.js">let sessionID = --><?//= $_SESSION['user_id']?><!--</script>-->
+    <script src="TimestampPriorityQueue.js"></script>
 <?php
 pageFooterHTML("../");
 

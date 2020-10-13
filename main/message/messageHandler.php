@@ -4,7 +4,7 @@ require_once("../classes/DBInterface.php");
 require_once("../settings.php");
 session_start();
 $token = $_REQUEST["token"];
-$db = DBInterface::connectToDB(DB_SETTINGS, DB_OPTIONS);
+    $db = DBInterface::connectToDB(DB_SETTINGS, DB_OPTIONS);
 switch($token){
     case "load":{
         echo(loadMessages($_REQUEST["sID"], $_REQUEST["rID"], $db));
