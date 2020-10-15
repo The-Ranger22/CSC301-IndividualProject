@@ -1,9 +1,21 @@
 <?php
+/**
+ * @author Levi Schanding <levischanding1@gmail.com>
+ *
+ *
+ * */
+
+
+
 require_once("csv.php");
 require_once("json.php");
 //require_once("../main/classes/DBInterface.php");
 //require_once("../main/classes/User.php");
-
+/**
+ * Sign in method that validates the user information taken from $_POST['username'] and $_POST['password'] by querying
+ * the database.
+ * @return string
+ */
 function sign_in(){
     if(count($_POST) > 0){
 
@@ -44,6 +56,11 @@ function sign_in(){
 
     }
 }
+
+/**
+ *
+ * @return int|string
+ */
 function sign_up(){
     if(count($_POST)>0){
         if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) return ('Invalid email.');
@@ -75,6 +92,10 @@ function sign_up(){
     }
     return -1;
 }
+
+/**
+ * @return void
+ */
 function sign_out(){
     //check if user is logged in
     if(!(session_logged('user_id'))) header('Location: signin.php');
@@ -87,9 +108,24 @@ function sign_out(){
     //redirect session to sign in page
     header('Location: signin.php');
 }
+
+/**
+ * Checks if the current user has a session logged.
+ *
+ * @param $id_field
+ * @return bool
+ */
 function session_logged($id_field){
     return isset($_SESSION[$id_field]{0});
 }
+
+/**
+ * Checks to see if the active user's id is equal to the id of another user
+ *
+ * @param $activeID -
+ * @param $otherID
+ * @return bool
+ */
 function is_user($activeID, $otherID){
     if($activeID == $otherID) return true;
     else return false;

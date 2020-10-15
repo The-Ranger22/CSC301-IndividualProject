@@ -6,6 +6,10 @@ define("CSS_PROP_POS_STATIC", "static");
 define("CSS_PROP_POS_ABSOLUTE", "absolute");
 define("CSS_PROP_POS_FIXED", "fixed");
 define("CSS_PROP_POS_RELATIVE", "relative");
+/**
+ * @param $pageTitle
+ * @param string $path
+ */
 function pageHeaderHTML($pageTitle, $path=''){
     echo('
 
@@ -34,6 +38,10 @@ function pageHeaderHTML($pageTitle, $path=''){
 
 ');
 }
+
+/**
+ * @param string $path
+ */
 function pageFooterHTML($path=''){
     echo('
 
@@ -49,12 +57,16 @@ function pageFooterHTML($path=''){
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
 <script src="'.$path.'../_assets/js/bootstrap.js"></script>
-<script src="'.$path.'../_assets/js/zg-main.js"></script>
 </body>
 </html>
 
 ');
 }
+
+/**
+ * @param $text
+ * @param int $size
+ */
 function addHeaderHTML($text, $size = 2){
     if($size > 6 || $size < 1){
         echo('
@@ -65,6 +77,11 @@ function addHeaderHTML($text, $size = 2){
         echo('<h'.$size.' class="header-text">'.$text.'</h'.$size.'>');
     }
 }
+
+/**
+ * @param bool $isRow
+ * @param null $col_size
+ */
 function startContainerHTML($isRow=true,$col_size=null){
     if($isRow == true){
         echo('<div class="row cstm-border standard-container" id="main_content">');
@@ -77,6 +94,10 @@ function startContainerHTML($isRow=true,$col_size=null){
         echo('<div class="'.$col.' cstm-border standard-container" id="main_content">');
     }
 }
+
+/**
+ * @return void
+ */
 function endContainerHTML(){
     echo('
     </div>
@@ -84,6 +105,9 @@ function endContainerHTML(){
     ');
 }
 
+/**
+ * @return void
+ */
 function startNavbarHTML(){
     echo('
     <div class="row cstm-border nav-container" id="nav_bar">
@@ -91,6 +115,10 @@ function startNavbarHTML(){
             <ul>
     ');
 }
+
+/**
+ * @return void
+ */
 function endNavbarHTML(){
     echo('
             </ul>
@@ -99,12 +127,22 @@ function endNavbarHTML(){
     <div class="row spacer2"></div>
     ');
 }
+
+/**
+ * @param $filepath
+ * @param $name
+ */
 function addNavItemHTML($filepath, $name){
     echo('
     <li class="nav-item-style"><a href="'.$filepath.'">'.$name.'</a></li>
     ');
 }
 
+/**
+ * @param $inputArr
+ * @param string $action
+ * @param string $method
+ */
 function generateHTMLForm( $inputArr, $action = "", $method = "POST"){
     echo('<div class="col">');
     echo('<form action="'.$action.'" method="'.$method.'">');
@@ -153,6 +191,18 @@ function generateHTMLForm( $inputArr, $action = "", $method = "POST"){
     echo('</form>');
     echo('</div>');
 }
+
+/**
+ * @param $element
+ * @param $content
+ * @param $attributes
+ * @param string $positionType
+ * @param null $zIndex
+ * @param null $left
+ * @param null $top
+ * @param null $right
+ * @param null $bottom
+ */
 function positionElement($element, $content, $attributes, $positionType="static", $zIndex=null, $left=null, $top=null, $right=null, $bottom=null){
 
     ?>

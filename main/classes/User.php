@@ -1,18 +1,57 @@
 <?php
 
+/**
+ * Class User
+ */
 class User
 {
+
+    /**
+     * @var
+     */
     private $username;
+    /**
+     * @var
+     */
     private $email;
+    /**
+     * @var
+     */
     public $user_id;
+    /**
+     * @var
+     */
     private $password;
+    /**
+     * @var
+     */
     private $dob;
+    /**
+     * @var array
+     */
     public $details = [];
+    /**
+     * @var
+     */
     private $role;
+    /**
+     * @var
+     */
     private $isOnline;
 
+    /**
+     * User constructor.
+     */
     function __construct(){}
     //User methods
+
+    /**
+     * @param $username
+     * @param $email
+     * @param $password
+     * @param $dob
+     * @param int $role
+     */
     public function createUser($username, $email, $password, $dob, $role=1)
     {
         $this->username = $username;
@@ -28,6 +67,10 @@ class User
         $this->role = $role;
         DBInterface::insert('user','username, email, password, DoB, details, role',[$this->username, $this->email, $this->password, $this->dob, json_encode($this->details), $this->role], DB_SETTINGS, DB_OPTIONS);
     }
+
+    /**
+     * @param $userID
+     */
     public function createUserFromID($userID){
         $db = DBInterface::connectToDB(DB_SETTINGS, DB_OPTIONS);
         $query = $db->prepare("SELECT * FROM user WHERE user_id=?");
@@ -48,6 +91,18 @@ class User
             $this->isOnline = false;
         }
     }
+
+    /**
+     * @param $username
+     * @param $password
+     * @param $email
+     * @param $title
+     * @param $quote
+     * @param $bio
+     * @param $role
+     * @param string $img
+     * @return string
+     */
     public function updateUser($username, $password, $email, $title, $quote, $bio, $role, $img = '../../_assets/img/profile-placeholder.png'){
         echo("BEEP-START");
         $db = DBInterface::connectToDB(DB_SETTINGS, DB_OPTIONS);
@@ -92,6 +147,13 @@ class User
         $query = $db->prepare("UPDATE user SET username=?, email=?, password=?, role=?, details=? WHERE user_id=?");
         $query->execute([$this->username, $this->email, $this->password, $this->role, $updatedDetails, $this->user_id]);
     }
+
+    /**
+     * @param $title
+     * @param $quote
+     * @param $bio
+     * @param string $img
+     */
     public function updateDetails($title, $quote, $bio, $img = '../../_assets/img/profile-placeholder.png'){
         $this->details = [
             'title' => $title,
@@ -107,22 +169,36 @@ class User
         $query->execute([$updatedDetails, $this->user_id]);
     }
 
+    /**
+     *
+     */
     public function setOnline(){
         $this->isOnline = true;
         $db = DBInterface::connectToDB(DB_SETTINGS, DB_OPTIONS);
         $query = $db->prepare("UPDATE user SET online=? WHERE user_id=?");
         $query->execute([1, $this->user_id]);
     }
+
+    /**
+     *
+     */
     public function setOffline(){
         $this->isOnline = false;
         $db = DBInterface::connectToDB(DB_SETTINGS, DB_OPTIONS);
         $query = $db->prepare("UPDATE user SET online=? WHERE user_id=?");
         $query->execute([0, $this->user_id]);
     }
+
+    /**
+     * @return mixed
+     */
     public function checkActive(){
         return $this->isOnline;
     }
 
+    /**
+     *
+     */
     private function clearUser(){
         $this->username = null;
         $this->email = null;
@@ -132,32 +208,56 @@ class User
     }
 
     //getter methods
+
+    /**
+     * @return mixed
+     */
     public function get_username()
     {
         return $this->username;
     }
 
+    /**
+     * @return mixed
+     */
     public function get_email()
     {
         return $this->email;
     }
 
+    /**
+     * @return mixed
+     */
     public function get_password()
     {
         return $this->password;
     }
 
+    /**
+     * @return mixed
+     */
     public function get_user_id()
     {
         return $this->user_id;
     }
+
+    /**
+     * @return array
+     */
     public function get_details(){
         return $this->details;
     }
+
+    /**
+     * @return mixed
+     */
     public function getRole(){
         return $this->role;
     }
 
+    /**
+     * @return string
+     */
     public function toString()
     {
         return $this->username.";".$this->email.";".$this->user_id.";";

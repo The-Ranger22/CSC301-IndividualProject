@@ -107,7 +107,6 @@ $post_data = $database->query('SELECT * FROM post WHERE author_id='.$_GET['id'])
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
 <script src="../_assets/js/bootstrap.js"></script>
-<script src="../_assets/js/zg-main.js"></script>
 <script>
 
     //confirmDelete('user/deleteUser.php?id=<?= $_GET['id'] ?>',"Delete User?");

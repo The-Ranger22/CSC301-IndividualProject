@@ -1,34 +1,8 @@
-#login_form{
-    max-width: 350px
-}
-.login_field{
-    background-color: #494c56;
-    border: none;
-    margin-bottom: 6px;
-}
-.dark-mode .login_field{
-    color: white;
-}
-.light-mode .login_field{
-    color: white;
-}
-#title_splash{
-    /*font-size: 24px;
-    margin-left: -10rem;
-    border: 1px solid black;
-    border-radius: 15px;
-    text-align: center;*/
-}
-#title_text{
-    font-size: 5vw;
-    font-min-size: 150px;
-    filter: drop-shadow(2px 2px black);
-}
-#title_text .span{
-    margin: 0;
-    padding: 0;
-}
+/*-=[Zeitgeist Main]=-*//*
+This file is the master stylesheet for the whole project. Its also a clusterfuck.
 
+
+ */
 .c-red{
     color: red;
 }
@@ -59,16 +33,7 @@
 .c-bg-lightblue{
     background-color: #1f3e91;
 }
-#dark_mode{
-    position: fixed;
-    bottom: 1rem;
-    right: 1rem;
-    background-color: rgba(0, 0, 0, 0);
-    z-index: 0;
-}
-#dark_mode:hover{
-    cursor: pointer;
-}
+
 .item{
     word-wrap: break-word;
     margin: 3px;
@@ -81,36 +46,8 @@
     max-width: 180px;
     min-width: 180px;
 }
-.light-mode{
 
-    transition: background-color 0.5s ease;
-    background-color: #e3e3e3;
-    color: #18181c;
-    /*
-    background-image: url('https://i.ibb.co/YLMfCFw/pixil-frame-0-2.png');
-    background-color: #0f0135;
-    background-position: 0px 0px;
-    background-repeat: repeat;
-    min-height: 100vh;
 
-    animation: animatedBackground 4s linear infinite;
-    z-index: -1;
-
-     */
-}
-.light-mode #title_text{
-    /*text-shadow: 3px 3px 1px #3e94b1, 6px 6px 2px #356f80, 9px 9px 2px #194044, 12px 12px 2px #142c2e;*/
-}
-
-.dark-mode {
-    transition: background-color 0.5s ease;
-    background-color: #18181c;
-    color: white;
-    z-index: -1;
-}
-.dark-mode #title_text{
-    /*text-shadow: 3px 3px 1px #b11a43, 6px 6px 2px #801739, 9px 9px 2px #440b1c, 12px 12px 2px #2e0b17*/;
-}
 .cstm-border{
     border: 8px solid transparent;
     border-radius: 5px;
@@ -122,19 +59,6 @@
     border-top-left-radius: 10px;*/
 }
 
-
-.f-cm{
-    font-family: 'Cutive Mono', monospace;
-}
-.f-mm{
-    font-family: 'Major Mono Display', monospace;
-}
-.f-vt323{
-    font-family: 'VT323', monospace;
-}
-.f-stm{
-    font-family: 'Share Tech Mono', monospace;
-}
 .f-scp{
     font-family: "Source Code Pro", sans-serif;
 }
@@ -211,6 +135,7 @@
     min-height: 1rem;
 }
 
+/*-=[The Moving Background]=-*/
 @keyframes animatedBackground {
     from { background-position: 0 0; }
     to { background-position: -192px 192px; }

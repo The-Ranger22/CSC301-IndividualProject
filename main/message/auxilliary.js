@@ -1,3 +1,4 @@
+
 class MailboxController{
     constructor(){
         this.mBox = document.getElementById("messenger");

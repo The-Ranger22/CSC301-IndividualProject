@@ -2,12 +2,28 @@
 //Class that acts as the SQL DB interface. (THIS CLASS DOES NOT HANDLE AUTH, ONLY HANDLING DATA FROM THE DB)
 
 
+/**
+ * Class DBInterface
+ */
 class DBInterface
 {
     //MySQL
+    /**
+     * @param $settings
+     * @param $options
+     * @return PDO
+     */
     public static function connectToDB($settings, $options){
         return new PDO('mysql:host='.$settings['host'].';dbname='.$settings['dbname'].';charset='.$settings['charset'],$settings['username'],$settings['password'], $options);
     }
+
+    /**
+     * @param $table
+     * @param $fields
+     * @param $values
+     * @param $settings
+     * @param $options
+     */
     public static function insert($table, $fields, $values, $settings, $options){
         $db = self::connectToDB($settings, $options);
         $values_placeholder = '';
@@ -24,14 +40,36 @@ class DBInterface
     }
 
 
+    /**
+     * @param $user_data
+     * @param $settings
+     * @param $options
+     */
     public static function addUser($user_data, $settings, $options){
         $db = self::connectToDB($settings, $options);
         $query = $db->prepare("INSERT INTO user(username, email, password, DoB) VALUES (?, ?, ?, ?)");
         $query->execute([$user_data['username'],$user_data['email'],$user_data['password'], $user_data['DoB']]);
     }
+
+    /**
+     * @param $user_id
+     * @param $file
+     */
     public static function removeUser($user_id, $file){/*Removes a user : boolean*/}
+
+    /**
+     * @param $user_id
+     * @param $user_details
+     * @param $file
+     */
     public static function updateUser($user_id, $user_details, $file){/*Updates a user : boolean*/}
     //Handling Post
+
+    /**
+     * @param $post_id
+     * @param $file
+     * @return bool|mixed
+     */
     public static function getPost($post_id, $file){
         $post_arr = self::getAllPosts($file);
         foreach($post_arr as &$post){
@@ -39,6 +77,11 @@ class DBInterface
         }
         return false;
     }
+
+    /**
+     * @param $file
+     * @return array
+     */
     public static function getAllPosts($file){/*Returns all posts : Post[]*/
         $h=fopen($file,'r');
         $csv='';
@@ -55,6 +98,11 @@ class DBInterface
         }
         return $post_arr;
     }
+
+    /**
+     * @param $post
+     * @param $post_id
+     */
     public static function addPost($post, $post_id){/*Adds a post : boolean*/
         $csv = readCSV(POST_DIRECTORY);
         $csv[0][1]++;
@@ -65,6 +113,10 @@ class DBInterface
 
 
     //Utility functions
+    /**
+     * @param $file
+     * @return mixed
+     */
     public static function getPostTotal($file){
         $csv = readAtCSV($file, 0);
         return $csv[1];
